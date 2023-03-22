@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="author" content="colorlib.com">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sign Up Form</title>
+
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="fonts/themify-icons/themify-icons.css">
+
+    <!-- Main css -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../../Cardila/">
+     <!-- Fonts -->
+     <link rel="preconnect" href="https://fonts.googleapis.com" />
+     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+     <link
+       href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+       rel="stylesheet"
+     />
+ 
+     <!-- Icons. Uncomment required icon fonts -->
+     <link rel="stylesheet" href="../../Cardila/assets/vendor/fonts/boxicons.css" />
+ 
+     <!-- Core CSS -->
+     <link rel="stylesheet" href="../../Cardila/assets/vendor/css/core.css" class="template-customizer-core-css" />
+     <link rel="stylesheet" href="../../Cardila/assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
+     <link rel="stylesheet" href="../../Cardila/assets/css/demo.css" />
+ 
+     <!-- Vendors CSS -->
+     <link rel="stylesheet" href="../../Cardila/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+ 
+     <link rel="stylesheet" href="../../Cardila/assets/vendor/libs/apex-charts/apex-charts.css" />
+ 
+     <!-- Page CSS -->
+ 
+     <!-- Helpers -->
+     <script src="../../Cardila/assets/vendor/js/helpers.js"></script>
+</head>
+<body>
+
+    <div class="main">
+
+        <div class="container">
+            <h2>Seting up business</h2>
+            <!-- Circles which indicates the steps of the form: -->
+            <div style="text-align:center;margin-top:40px;">
+                <span class="step"></span>
+                <span class="step"></span>
+                <span class="step"></span>
+                <span class="step"></span>
+            </div>
+
+            <form id="regForm" action="" class="mb-3">
+                <!-- One "tab" for each step in the form: -->
+                <div class="tab">
+                    <h3>Personal business info</h3>
+                    <div class="mb-3">
+                        <label for="businessName" class="form-label required">Business name</label>
+                        <input
+                        type="text"
+                        class="form-control "
+                        id="businessName"
+                        name="businessName"
+                        placeholder="Enter your Business Type"
+                        autofocus
+                        oninput="this.className = ''"
+                        />
+                    </div>
+                    <div class="mb-3">
+                        <label for="btype" class="form-label required">Business Type</label>
+                        <input
+                        type="text"
+                        class="form-control "
+                        id="businessType"
+                        name="btype"
+                        placeholder="Enter your Business Type"
+                        autofocus
+                        oninput="this.className = ''"
+                        />
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="user_name"class="form-label required ti-upload" >Upload image name</label>
+                        <input type="file" name="logoUrl" class="form-control" id="logoUrl" palceholder="Upload image" />
+                    </div>
+                </div>
+                
+                <div class="tab">
+                    <h3>Branche</h3>
+
+                    <div class="mb-3">
+                        <label for="branchAdress" class="form-label required">Business Adress</label>
+                        <input
+                        type="text"
+                        class="form-control "
+                        id="branchAdress"
+                        name="branchAdress"
+                        placeholder="Enter your Business adress"
+                        autofocus
+                        oninput="this.className = ''"
+                        />
+                    </div>
+                </div>
+                
+                <div class="tab">
+                    <h3>Admin </h3>
+                    <div class="mb-3">
+                        <label for="branchName" class="form-label required">Branch Name </label>
+                        <input
+                        type="text"
+                        class="form-control"
+                        id="branchName"
+                        name="branchName"
+                        placeholder="Enter your  branch Name "
+                        autofocus
+                        />
+                    </div>
+                    <div class="mb-3">
+                        <label for="adminUsername" class="form-label required">Admin Username </label>
+                        <input
+                        type="text"
+                        class="form-control "
+                        id="adminUsername"
+                        name="adminUsername"
+                        placeholder="Enter your Admin Username"
+                        autofocus
+                        oninput="this.className = ''"
+                        />
+                    </div>
+                    <div class="mb-3">
+                        <label for="adminEmail" class="form-label required">Admin email </label>
+                        <input
+                        type="text"
+                        class="form-control "
+                        id="adminEmail"
+                        name="adminEmail"
+                        placeholder="Enter your Admin email"
+                        autofocus
+                        oninput="this.className = ''"
+                        />
+                    </div>
+                    <div class="mb-3">
+                        <label for="adminPassword" class="form-label required">Admin Password </label>
+                        <input
+                        type="password"
+                        class="form-control "
+                        id="adminPassword"
+                        name="adminPassword"
+                        placeholder="Enter your Admin Password"
+                        autofocus
+                        oninput="this.className = ''"
+                        />
+                    </div>
+                </div>
+                
+                <div class="tab">
+                    <h3>Card</h3>
+                    <div class="form-group">
+                        <label for="card color" class="form-label required">Pick card color</label>
+                        <input type="color" value="#34d5a0" id="color" class="form-control " />
+                    </div>
+                    <div class="form-group">
+                        <label for="holder_name" class="form-label required">Select card type</label>
+                        <div class="input-group mb-3">
+                            <select class="form-select" id="card_type">
+                              <option selected>Choose...</option>
+                              <option value="POINT">POINT</option>
+                              <option value="CHECKS">Checkes</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="overflow:auto;">
+                  <div style="float:right;">
+                    <button type="button" class="btn btn-danger" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                    <button type="button" id="nextBtn" class="btn btn-info" onclick="nextPrev(1)">Next</button>
+                  </div>
+                </div>
+                
+                <input type="button" value="send" onclick="get_business_data()">
+                
+            </form>
+        </div>
+
+    </div>
+    <!-- JS -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="vendor/jquery-validation/dist/additional-methods.min.js"></script>
+    <script src="vendor/jquery-steps/jquery.steps.min.js"></script>
+    <script src="vendor/minimalist-picker/dobpicker.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/send-main.js"></script>
+
+    <script src="../../Cardila/assets/vendor/libs/popper/popper.js"></script>
+    <script src="../../Cardila/assets/vendor/js/bootstrap.js"></script>
+    <script src="../../Cardila/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+
+    <script src="../../Cardila/assets/vendor/js/menu.js"></script>
+    <!-- endbuild -->
+
+    <!-- Vendors JS -->
+    <script src="../../Cardila/assets/vendor/libs/apex-charts/apexcharts.js"></script>
+
+    <!-- Main JS -->
+    <script src="../../Cardila/assets/js/main.js"></script>
+
+    <!-- Page JS -->
+   
+
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+</body>
+</html>
