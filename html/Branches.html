@@ -5,7 +5,7 @@
   dir="ltr"
   data-theme="theme-default"
   data-assets-path="../assets/"
-  data-template="vertical-menu-template-free"
+  
 >
   <head>
     <meta charset="utf-8" />
@@ -25,9 +25,10 @@
       href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
       rel="stylesheet"
     />
+    <link rel="icon" type="image/ico" href="../assets/img/icons/unicons/favicon.ico">
 
     <!-- Icons. Uncomment required icon fonts -->
-    <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
+    <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" /> 
 
     <!-- Core CSS -->
     <link rel="stylesheet" href="../assets/vendor/css/core.css" class="template-customizer-core-css" />
@@ -39,6 +40,7 @@
 
     <link rel="stylesheet" href="../assets/vendor/libs/apex-charts/apex-charts.css" />
     <link rel="stylesheet" href="../assets/vendor/css/mystyle.css" />
+    <link rel="stylesheet" href="../assets/vendor/css/iziToast.min.css">
 
     <!-- Page CSS -->
 
@@ -48,18 +50,21 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../assets/js/config.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
   </head>
-<body>
+<body onload="get_branches() ;get_customers();get_branch_customers();get_transaction();get_offers();get_card_info() ;fetsh_transactions()">
   <div class="layout-wrapper layout-content-navbar">
     <div class="layout-container">
-      <!-- Menu -->
+    
 
       <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
         <div class="app-brand demo">
           <a href="index.html" class="app-brand-link">
             <span class="app-brand-logo demo">
+              <img src="../assets/img/icons/unicons/favicon.ico" width="40" height="40" alt="">
             </span>
-            <span class="app-brand-text demo menu-text fw-bolder ms-2">Cardilla</span>
+            <h2 class=" demo menu-text fw-bolder ms-2" style="margin-top:10px;color: #DB5544;">ARDILLA</h2>
           </a>
 
           <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -79,24 +84,9 @@
           
               <ul class="">
                 <li class="menu-item">
-                  <div class="all-cards">                    
-                    <div class="nav-cards" data-card="1">
-                      <div class="image">
-                        <div class="logo-card"></div>
-                        <h3 class="text-center
-                        
-                        ">Achref</h3>
-                        <div class="cardinfos">
-                          <div class="left">
-                            <h6 class="text-center">Experation date</h6>
-                            <p class="text-center"> __ - __ - __</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="next">
-                        <i class="bx bx-right-arrow-alt"></i>                          
-                      </div>
-                    </div>
+                  <div class="all-cards" id="cardshapbr">                    
+                    
+                    <!-- 
                     <div class="nav-cards" data-card="2">
                       <div class="image">
                         <div class="logo-card"></div>
@@ -142,7 +132,7 @@
                         <i class="bx bx-right-arrow-alt"></i>                          
                       </div>
                     </div>
-                  </div>
+                  </div>-->
                 </li>
               </ul>
           </li>
@@ -150,15 +140,15 @@
           
            <!-- Dashboard -->
           <li class="menu-item"><!--dachboard-->
-            <a href="index.html" class="menu-link">
+            <a href="index.html" id="indexlink" class="menu-link">
               <i class="menu-icon tf-icons bx bx-home-circle"></i>
               <div data-i18n="Analytics">Dashboard</div>
             </a>
           </li>
           <li class="menu-item"><!--clients-->
-            <a href="client.html" class="menu-link">
+            <a href="Customers.html" class="menu-link">
               <i class="menu-icon tf-icons bx bx-user"></i>
-              <div data-i18n="Error">Client </div>
+              <div data-i18n="Error">Customers </div>
             </a>
           </li>
           <li class="menu-item"><!--Branches-->
@@ -171,13 +161,19 @@
             <a href="offer.html" class="menu-link">
               <i class="menu-icon tf-icons bx bxs-offer"></i>
 
-              <div data-i18n="Error">offer </div>
+              <div data-i18n="Error">Offers </div>
             </a>
           </li>
           <li class="menu-item"><!--Cards-->
-            <a href="pages-misc-error.html"data-bs-toggle="modal" data-bs-target="#myModal"  class="menu-link">
+            <a href="pages-misc-error.html"data-bs-toggle="modal" data-bs-target="#cardModal"  class="menu-link">
               <i class="menu-icon tf-icons bx bxs-credit-card"></i>
               <div data-i18n="Error">Cards </div>
+            </a>
+          </li>
+          <li class="menu-item"><!--Cards-->
+            <a href="pages-misc-error.html"data-bs-toggle="modal" data-bs-target="#coponModal"  class="menu-link">
+              <i class="menu-icon tf-icons bx bxs-coupon"></i>
+              <div data-i18n="Error">Verify Coupons </div>
             </a>
           </li>
           <li class="menu-header small text-uppercase">
@@ -223,189 +219,239 @@
           </li>
         </ul>
       </aside>
-      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable " role="document">
-            <div class="modal-content ">
-              <div class="modal-body bg-3">
-    
-                <div class="px-3 to-front">
-                  <div class="row align-items-center">
-                    <div class="col text-right">
-                      <a href="#" class="close-btn" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">
-                          <span class="icon-close2"></span>
-                        </span>
-                      </a>
-                    </div>
+       <!--modal card-->
+       <div class="modal fade" id="cardModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable " role="document">
+          <div class="modal-content ">
+            <div class="modal-body bg-3">
+  
+              <div class="px-3 to-front">
+                <div class="row align-items-center">
+                  <div class="col text-right">
+                    <a href="#" class="close-btn" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">
+                        <span class="icon-close2"></span>
+                      </span>
+                    </a>
                   </div>
                 </div>
-                <div class="p-4 to-front">
-                  <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12">
-                      <div class="imginsidecard">
-                        <!--Card section-->
-                          <li class="menu-item">
-                            <ul class="">
-                              <li class="menu-item">
-                                                    
-                                  <div class="popup-cards" data-card="1">
-                                    <div class="image">
-                                      <div class="logo-card"></div>
-                                      <h3 class="text-center" style="margin-top: 40px;">Card Name</h3>
-                                      
-                                    </div>
-                                </div>
-                              </li>
-                            </ul>
-                          </li>
-                      <!--end popup card nav items-->
-                      </div>
+              </div>
+              <div class="p-4 to-front">
+                <div class="row">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="imginsidecard" id="modalBody">
+                      <!--Card section-->
+                        <li class="menu-item">
+                          <ul class="">
+                            <li class="menu-item">            
+                                <div class="popup-cards" data-card="1" id="preview">
+                                  <div class="image" id="preview-content">
+                                    <div class="logo-card"><img src="../assets/img/01.png" id="cardsectionlogo" width=" 50px" height="50px" alt=""></div>
+                                    <h3 class="text-center" style="margin-top: 40px;" id="name"></h3>
+                                  </div>
+                              </div>
+                            </li>
+                          </ul>
+                        </li>
+                    <!--end popup card nav items-->
                     </div>
-                                            
                   </div>
-                  <div class="row">
-                    <div class="col-md-6 left_col">
+                                          
+                </div>
+                <div class="row">
+                  <div class="col-md-6 left_col">
+                    <form  method="put">
                       <div class="form-check mb-3">
                         <label class="form-check-label" for="validationFormCheck1"><h6>Show Business name</h6></label>
                         <label class="switch">
-                          <input type="checkbox">
+                          <input type="checkbox" id="switch">
                           <span class="slider round"></span>
                         </label>
                       </div>
-                      
+                    
                       <div class="form-check mb-3 ">  
                         <h6>Pick your Card color</h6>
                         <input type="color"  class="form-control form-control-color colorpick" id="exampleColorInput" value="#563d7c" title="Choose your color">
                       </div>
                       <div class="cardsys">
                         <h5>Card system</h5>
-                        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                          <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
-                          <label class="btn btn-outline-danger btnbusi" for="btnradio1">Cheks</label>
-                        
-                          <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-                          <label class="btn btn-outline-danger btnbusi" for="btnradio2">Points</label>
-                        </div>
+                        <div class="form-group">
+                          <label for="holder_name" class="form-label required">Select card type</label>
+                          <div class="input-group mb-3">
+                              <select class="form-select" id="card_type">
+                                <option selected>Choose...</option>
+                                <option value="POINTS">POINTS</option>
+                                <option value="CHECKS">CHECKS</option>
+                              </select>
+                          </div>
                       </div>
-                      
+                      </div>
+                    
                       <br>
                       <br>
 
-                    </div>
-                    <div class="col-md-6">
-                      <div class="upload">
-                        <img src="../assets/img/12.jpg" width = 100 height = 100 alt="">
-                        <div class="round">
-                          <input type="file">
-                          <i class = "bx bx-plus-medical" style = "color: #fff;"></i>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="upload">
+                          <img id="previewImage" src="../assets/img/uploadimage.png" width = 100 height = 100 alt="">
+                          <div class="round">
+                            <input type="file" id="logo"  onchange="previewImage(event)">
+                            <i class = "bx bx-plus-medical" style = "color: #fff;"></i>
+                          </div>
+                          <h1 id="extension" style="color:red;font-size: 12px;margin-top: 60px;"></h1>
                         </div>
                       </div>
-                    </div>
-                    <br>
-                    <br><br>
-                    <br>
-                    
-                  </div>
-                  <br>
-                  <br>
-                  <div class="d-grid gap-2">
-                    <button type="button" class="btn btn-danger btnbusi">Done</button>
-                  </div> 
-                </div>
+                      <br>
+                      <br><br>
+                      <br>
+                      </div><br><br>
+                      <div class="d-grid gap-2">
+                        <input type="button" class="btn btn-danger btnbusi" value="Done" onclick="uploadImage();get_card_info_update()">
+                      </div>
+                    </form> 
               </div>
             </div>
           </div>
         </div>
+      </div>
+      <!--modal-->
+      <!--copon card-->
+      <div class="modal fade" id="coponModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable " role="document">
+          <div class="modal-content ">
+            <div class="modal-body bg-3">
+  
+              <div class="px-3 to-front">
+                <div class="row align-items-center">
+                  <div class="col text-right">
+                    <a href="#" class="close-btn" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">
+                        <span class="icon-close2"></span>
+                      </span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="p-4 to-front">
+                <div class="row">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <form >
+                      
+                      <div class="mb-3 row">
+                        <label for="inputPassword" class="col-sm-2 col-form-label">Copon</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" id="coponcode">
+                        </div>
+                      </div>
+                      <div class="mb-3 row">
+
+                        <button type="button" onclick="verify_coupon()" style="background-color: tomato; border: none;" class="btn btn-primary">send</button>
+                      </div>
+                    </form>
+                    
+                  </div>
+                                          
+                </div>
+                
+                     
+                   
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--copon modal-->
       <!-- / Menu -->
 
       <!-- Layout container -->
       <div class="layout-page">
         <!-- Navbar -->
         <nav
-          class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
-          id="layout-navbar"
-          >
-          <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
-            <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
-              <i class="bx bx-menu bx-sm"></i>
-            </a>
-          </div>
+            class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
+            id="layout-navbar"
+            >
+            <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
+              <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
+                <i class="bx bx-menu bx-sm"></i>
+              </a>
+            </div>
 
-          <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-            <!-- braedcrumb -->
-            <div class="navbar-nav align-items-center">
-              <div class="nav-item d-flex align-items-center">
-                <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                <li class="breadcrumb-item active" aria-current="page">
-                  Branches
-                </li>
+            <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
+              <!-- braedcrumb -->
+              <div class="navbar-nav align-items-center">
+                <div class="nav-item d-flex align-items-center">
+                  <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">
+                    Branches
+                  </li>
               </div>
             </div>
             <!-- /braedcrumb -->
 
-            <ul class="navbar-nav flex-row align-items-center ms-auto">
-              <!-- User -->
-              <li class="nav-item navbar-dropdown dropdown-user dropdown">
-                <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                  <div class="avatar avatar-online">
-                    <img src="../assets/img/avatars/001.jpg" alt class="w-px-40 h-auto rounded-circle" />
-                  </div>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-end">
-                  <li>
-                    <a class="dropdown-item" href="#">
-                      <div class="d-flex">
-                        <div class="flex-shrink-0 me-3">
-                          <div class="avatar avatar-online">
-                            <img src="../assets/img/avatars/001.jpg" alt class="w-px-40 h-auto rounded-circle" />
+              <ul class="navbar-nav flex-row align-items-center ms-auto">
+                <!-- Place this tag where you want the button to render. -->
+                <!-- User -->
+                <li class="nav-item navbar-dropdown dropdown-user dropdown">
+                  <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
+                    <div class="avatar avatar-online"id="businessimgs">
+                      <img src="../assets/img/01.png"  alt class="w-px-40 h-auto rounded-circle" />
+                    </div>
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-end">
+                    <li>
+                      <a class="dropdown-item" href="#">
+                        <div class="d-flex">
+                          <div class="flex-shrink-0 me-3">
+                            <div class="avatar avatar-online" id="businessimg">
+                              <img src="../assets/img/01.png" alt class="w-px-40 h-auto rounded-circle" />
+                            </div>
+                          </div>
+                          <div class="flex-grow-1">
+                            <span class="fw-semibold d-block"><span id="fname"></span> <span id="lname"></span></span>
+                            <small class="text-muted" id="role">Admin </small>
                           </div>
                         </div>
-                        <div class="flex-grow-1">
-                          <span class="fw-semibold d-block">Achref Bechane</span>
-                          <small class="text-muted">Admin</small>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-                  <li>
-                    <div class="dropdown-divider"></div>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="#">
-                      <i class="bx bx-user me-2"></i>
-                      <span class="align-middle">My Profile</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="#">
-                      <i class="bx bx-cog me-2"></i>
-                      <span class="align-middle">Settings</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="#">
-                      <span class="d-flex align-items-center align-middle">
-                        <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
-                        <span class="flex-grow-1 align-middle">Billing</span>
-                        <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
-                      </span>
-                    </a>
-                  </li>
-                  <li>
-                    <div class="dropdown-divider"></div>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="auth-login-basic.html">
-                      <i class="bx bx-power-off me-2"></i>
-                      <span class="align-middle">Log Out</span>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <!--/ User -->
-            </ul>
-          </div>
-        </nav>
+                      </a>
+                    </li>
+                    <li>
+                      <div class="dropdown-divider"></div>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="#">
+                        <i class="bx bx-user me-2"></i>
+                        <span class="align-middle">My Profile</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="#">
+                        <i class="bx bx-cog me-2"></i>
+                        <span class="align-middle">Settings</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="#">
+                        <span class="d-flex align-items-center align-middle">
+                          <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
+                          <span class="flex-grow-1 align-middle">Billing</span>
+                          <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
+                        </span>
+                      </a>
+                    </li>
+                    <li>
+                      <div class="dropdown-divider"></div>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="auth-login-basic.html">
+                        <i class="bx bx-power-off me-2"></i>
+                        <span class="align-middle">Log Out</span>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+                <!--/ User -->
+              </ul>
+            </div>
+          </nav>
         <!-- / Navbar -->
 
         <!-- Content wrapper -->
@@ -419,7 +465,7 @@
                   <div class="d-flex align-items-end row">
                     <div class="col-sm-7">
                       <div class="card-body">
-                        <h5 class="card-title text-primary">Welcome Back Achref! </h5>
+                        <h5 class="card-title text-primary">Welcome Back <span id="admin"></span>! you have <b id="<number_of_branches>"> </b> Branches </h5>
                       </div>
                     </div>
                     <div class="col-sm-5 text-center text-sm-left">
@@ -439,7 +485,10 @@
             </div>
             <div class="row">
               <div class="col-lg-12 col-md-12 col-sm-12 mt-4 mb-4 order-1">
-                <div class="row">
+                <div class="row" id="branches">
+                  
+                </div>
+                <div class="row" >
                   <div class="col-lg-3 col-md-6 col-sm-12 mt-4 mb-4">
                     <div class="card">
                       <div class="card-body">
@@ -464,8 +513,7 @@
                           </div>
                         </div>
                         <span class="fw-semibold d-block mb-1">Total clients</span>
-                        <h3 class="card-title mb-2">0</h3>
-                        <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> +50</small>
+                        <h3 class="card-title mb-2"><span id="totalclient"></span></h3>
                       </div>
                     </div>
                   </div>
@@ -474,27 +522,59 @@
                       <div class="card-body">
                         <div class="card-title d-flex align-items-start justify-content-between">
                           <div class="avatar flex-shrink-0">
-                            <i class=" bx bx-time"></i>
+                            <i class="bx bx-git-branch"></i>
+
                           </div>
                           <div class="dropdown">
                             <button
                               class="btn p-0"
                               type="button"
-                              id="cardOpt4"
+                              id="cardOpt6"
                               data-bs-toggle="dropdown"
                               aria-haspopup="true"
                               aria-expanded="false"
                             >
                               <i class="bx bx-dots-vertical-rounded"></i>
                             </button>
-                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt4">
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt6">
+                              <a class="dropdown-item" href="javascript:void(0);">View More</a>
+                              <a class="dropdown-item" href="javascript:void(0);">Delete</a>
+                            </div>
+                          </div>
+                        </div>
+                        <span class="d-block mb-1">Branches </span>
+                        <h3 class="card-title text-nowrap mb-1" ><b id="numberofbranchesbranchpage"> </b></h3>
+                        
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="col-lg-3 col-md-6 col-sm-12 mt-4 mb-4">
+                    <div class="card">
+                      <div class="card-body">
+                        <div class="card-title d-flex align-items-start justify-content-between">
+                          <div class="avatar flex-shrink-0">
+                            <i class="bx bxs-user-pin"></i>
+                          </div>
+                          <div class="dropdown">
+                            <button
+                              class="btn p-0"
+                              type="button"
+                              id="cardOpt1"
+                              data-bs-toggle="dropdown"
+                              aria-haspopup="true"
+                              aria-expanded="false"
+                            >
+                              <i class="bx bx-dots-vertical-rounded"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="cardOpt1">
                               <a class="dropdown-item" href="javascript:void(0);">View More</a>
                             </div>
                           </div>
                         </div>
-                        <span class="d-block mb-1">Pending Client</span>
-                        <h3 class="card-title text-nowrap mb-2"><small class="text-danger fw-semibold"><i class="bx bxs-hourglass"></i>0</small> </h3>
-                        <button class="btn btn-danger show-pending">nbadlha b7aja okhra</button>
+                        <span class="fw-semibold d-block mb-1">Total Incomes</span>
+                        <h3 class="card-title mb-2">221456</h3>
+                        <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i>2600</small>
                       </div>
                     </div>
                   </div>
@@ -521,394 +601,354 @@
                             </div>
                           </div>
                         </div>
-                        <span class="fw-semibold d-block mb-1">Total Incomes</span>
-                        <h3 class="card-title mb-2">5</h3>
-                        <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i>0</small>
+                        <h6>Customer of the month : </h6>
+
+                        <img src="../assets/img/avatars/7.png" alt="Avatar" class="rounded-circle" width="40px"
+                        height="40px" />
+                        <span class="card-title mb-2 span-brtitle">Achref bechane  </span>
+                        
                       </div>
                     </div>
                   </div>
-                  <div class="col-lg-3 col-md-6 col-sm-12 mt-4 mb-4">
-                    <div class="card">
-                      <div class="card-body">
-                        <div class="card-title d-flex align-items-start justify-content-between">
-                          <div class="avatar flex-shrink-0">
-                            
-                            <i class="bx bx-user-plus"></i>
-                          </div>
-                          <div class="dropdown">
-                            <button
-                              class="btn p-0"
-                              type="button"
-                              id="cardOpt6"
-                              data-bs-toggle="dropdown"
-                              aria-haspopup="true"
-                              aria-expanded="false"
-                            >
-                              <i class="bx bx-dots-vertical-rounded"></i>
-                            </button>
-                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt6">
-                              <a class="dropdown-item" href="javascript:void(0);">View More</a>
-                            </div>
-                          </div>
-                        </div>
-                        <span>New subscribers this month</span>
-                        <h3 class="card-title text-nowrap mb-1">0</h3>
-                        <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i>60</small>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-6 col-md-6 col-sm-12 mt-4 mb-4">
-                    <div class="card" style="background-color: #497EAE;color: #fff">
-                      <div class="card-body">
-                        <div class="card-title d-flex align-items-start justify-content-between">
-                          
-                          <div class="dropdown">
-                            <button
-                              class="btn p-0"
-                              type="button"
-                              id="cardOpt1"
-                              data-bs-toggle="dropdown"
-                              aria-haspopup="true"
-                              aria-expanded="false"
-                            >
-                              <i class="bx bx-dots-vertical-rounded"></i>
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="cardOpt1">
-                              <a class="dropdown-item" href="javascript:void(0);">View More</a>
-                            </div>
-                          </div>
-                        </div>
-                        <h3 class="card-title mb-2 text-center" style="color: #fff">Branche 1 </h3>
-                        <h6 class="card-title mb-2 text-center" style="color: #fff">6547891 client </h6>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-6 col-md-6 col-sm-12 mt-4 mb-4">
-                    <div class="card" style="background-color: #eae6e6;">
-                      <div class="card-body">
-                        <div class="card-title d-flex align-items-start justify-content-between">
-                          
-                          <div class="dropdown">
-                            <button
-                              class="btn p-0"
-                              type="button"
-                              id="cardOpt1"
-                              data-bs-toggle="dropdown"
-                              aria-haspopup="true"
-                              aria-expanded="false"
-                            >
-                              
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="cardOpt1">
-                              <a class="dropdown-item" href="javascript:void(0);">View More</a>
-                            </div>
-                          </div>
-                        </div>
-                        <h3 class="card-title mb-2 text-center">Branche 2 </h3>
-                        <h6 class="card-title mb-2 text-center"> 123456 client </h6>
-                      </div>
-                    </div>
-                  </div>
+                  
                 </div>
               </div>
-              
-              <!-- Total Revenue -->
-              
-              
-              <!--/ Total Revenue -->
-              
             </div>
-            <!-- Pending clients Table -->
-            <div class="card cardtohide ">
-              <h5 class="card-header">Pending Clients</h5>
-              <div class="table-responsive text-nowrap">
-                <table class="table table-dark">
-                  <thead>
-                    <tr>
-                      <th></th>
-                      <th>Name</th>
-                      <th>Phone Number</th>
-                      <th>Status</th>
-                      <th>Accept</th>
-                      <th>Decline</th>
-                    </tr>
-                  </thead>
-                  <tbody class="table-border-bottom-0">
-                    <tr class="table-default">
-                      <td>
-                        <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-                          <li
-                            data-bs-toggle="tooltip"
-                            data-popup="tooltip-custom"
-                            data-bs-placement="top"
-                            class="avatar avatar-xs pull-up"
-                            title="Christina Parker"
-                          >
-                            <img src="../assets/img/avatars/7.png" alt="Avatar" class="rounded-circle" />
-                          </li>
-                        </ul>
-                      </td>
-                      <td>Achref Bechane</td>
-                      <td><i class="fab fa-sketch fa-lg text-warning me-3"></i> <strong>07 81 82 84 71</strong></td>
-                      <td><span class="badge bg-label-warning me-1">Pending</span></td>
-                      <td><button class="btn btn-success">Accept</button></td>
-                      <td><button class="btn btn-danger">Decline</button></td>
-                      
-                    </tr>
-                    <tr class="table-active">
-                      <td>
-                        <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-                          <li
-                            data-bs-toggle="tooltip"
-                            data-popup="tooltip-custom"
-                            data-bs-placement="top"
-                            class="avatar avatar-xs pull-up"
-                            title="Christina Parker"
-                          >
-                            <img src="../assets/img/avatars/7.png" alt="Avatar" class="rounded-circle" />
-                          </li>
-                        </ul>
-                      </td>
-                      <td>Achref Bechane</td>
-                      <td><i class="fab fa-sketch fa-lg text-warning me-3"></i> <strong>07 81 82 84 71</strong></td>
-                      <td><span class="badge bg-label-warning me-1">Pending</span></td>
-                      <td><button class="btn btn-success">Accept</button></td>
-                      <td><button class="btn btn-danger">Decline</button></td>
-                      
-                    </tr>
-                    <tr class="table-default">
-                      <td>
-                        <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-                          <li
-                            data-bs-toggle="tooltip"
-                            data-popup="tooltip-custom"
-                            data-bs-placement="top"
-                            class="avatar avatar-xs pull-up"
-                            title="Christina Parker"
-                          >
-                            <img src="../assets/img/avatars/7.png" alt="Avatar" class="rounded-circle" />
-                          </li>
-                        </ul>
-                      </td>
-                      <td>Achref Bechane</td>
-                      <td><i class="fab fa-sketch fa-lg text-warning me-3"></i> <strong>07 81 82 84 71</strong></td>
-                      <td><span class="badge bg-label-warning me-1">Pending</span></td>
-                      <td><button class="btn btn-success">Accept</button></td>
-                      <td><button class="btn btn-danger">Decline</button></td>
-                      
-                    </tr>
-                    <tr class="table-active">
-                      <td>
-                        <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-                          <li
-                            data-bs-toggle="tooltip"
-                            data-popup="tooltip-custom"
-                            data-bs-placement="top"
-                            class="avatar avatar-xs pull-up"
-                            title="Christina Parker"
-                          >
-                            <img src="../assets/img/avatars/7.png" alt="Avatar" class="rounded-circle" />
-                          </li>
-                        </ul>
-                      </td>
-                      <td>Achref Bechane</td>
-                      <td><i class="fab fa-sketch fa-lg text-warning me-3"></i> <strong>07 81 82 84 71</strong></td>
-                      <td><span class="badge bg-label-warning me-1">Pending</span></td>
-                      <td><button class="btn btn-success">Accept</button></td>
-                      <td><button class="btn btn-danger">Decline</button></td>
-                      
-                    </tr>
-                    <tr class="table-default">
-                      <td>
-                        <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-                          <li
-                            data-bs-toggle="tooltip"
-                            data-popup="tooltip-custom"
-                            data-bs-placement="top"
-                            class="avatar avatar-xs pull-up"
-                            title="Christina Parker"
-                          >
-                            <img src="../assets/img/avatars/7.png" alt="Avatar" class="rounded-circle" />
-                          </li>
-                        </ul>
-                      </td>
-                      <td>Achref Bechane</td>
-                      <td><i class="fab fa-sketch fa-lg text-warning me-3"></i> <strong>07 81 82 84 71</strong></td>
-                      <td><span class="badge bg-label-warning me-1">Pending</span></td>
-                      <td><button class="btn btn-success">Accept</button></td>
-                      <td><button class="btn btn-danger">Decline</button></td>
-                      
-                    </tr>
-                    <tr class="table-active">
-                      <td>
-                        <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-                          <li
-                            data-bs-toggle="tooltip"
-                            data-popup="tooltip-custom"
-                            data-bs-placement="top"
-                            class="avatar avatar-xs pull-up"
-                            title="Christina Parker"
-                          >
-                            <img src="../assets/img/avatars/7.png" alt="Avatar" class="rounded-circle" />
-                          </li>
-                        </ul>
-                      </td>
-                      <td>Achref Bechane</td>
-                      <td><i class="fab fa-sketch fa-lg text-warning me-3"></i> <strong>07 81 82 84 71</strong></td>
-                      <td><span class="badge bg-label-warning me-1">Pending</span></td>
-                      <td><button class="btn btn-success">Accept</button></td>
-                      <td><button class="btn btn-danger">Decline</button></td>
-                      
-                    </tr>
-                    <tr class="table-default">
-                      <td>
-                        <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-                          <li
-                            data-bs-toggle="tooltip"
-                            data-popup="tooltip-custom"
-                            data-bs-placement="top"
-                            class="avatar avatar-xs pull-up"
-                            title="Christina Parker"
-                          >
-                            <img src="../assets/img/avatars/7.png" alt="Avatar" class="rounded-circle" />
-                          </li>
-                        </ul>
-                      </td>
-                      <td>Achref Bechane</td>
-                      <td><i class="fab fa-sketch fa-lg text-warning me-3"></i> <strong>07 81 82 84 71</strong></td>
-                      <td><span class="badge bg-label-warning me-1">Pending</span></td>
-                      <td><button class="btn btn-success">Accept</button></td>
-                      <td><button class="btn btn-danger">Decline</button></td>
-                      
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-            <!--/ Pending clients Table -->
-            <br><br>
             <!-- Expense Overview -->
-            <div class="col-lg-12 col-md-12 col-sm-12 mt-4 mb-4">
-                <div class="card">
-                  <div class="card-body">
-                    <div class="card-title d-flex align-items-start justify-content-between">
-                      <h5>Customer of the month</h5>
+            <div class="row " >
+              <!--/ Expense Overview -->
+              <!-- Contextual Classes -->
+              <!-- Transactions -->
+              <div class="row">
+                <div class="col-lg-12 col-md-12 col-lg-6 order-2 mb-4">
+                  <div class="card h-100">
+                    <div class="card-header d-flex align-items-center justify-content-between">
+                      <h5 class="card-title m-0 me-2" >Recent Transactions </h5>
                       <div class="dropdown">
                         <button
                           class="btn p-0"
                           type="button"
-                          id="cardOpt1"
+                          id="transactionID"
                           data-bs-toggle="dropdown"
                           aria-haspopup="true"
                           aria-expanded="false"
                         >
                           <i class="bx bx-dots-vertical-rounded"></i>
                         </button>
-                        <div class="dropdown-menu" aria-labelledby="cardOpt1">
-                          <a class="dropdown-item" href="javascript:void(0);">View More</a>
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="transactionID">
+                          <a class="dropdown-item" href="javascript:void(0);">Last 28 Days</a>
+                          <a class="dropdown-item" href="javascript:void(0);">Last Month</a>
+                          <a class="dropdown-item" href="javascript:void(0);">Last Year</a>
                         </div>
                       </div>
                     </div>
-                    <img src="../assets/img/avatars/7.png" alt="Avatar" class="rounded-circle" width="50px"
-                    height="50px" />
-                    <span class="card-title mb-2 span-brtitle">Achref bechane <span style="color:#16c40d"><b>+5500 DZA</b></span> </span>
-                    
+                    <div class="card-body">
+                      <ul class="p-0 m-0" id="show_transactions">
+                        <li class="d-flex mb-4 pb-1" >
+                          <div class="avatar flex-shrink-0 me-3">
+                            <img src="../assets/img/icons/unicons/favicon.ico"width=16 height="16" alt="User" class="rounded" />
+                          </div>
+                          <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                            <div class="me-2">
+                              <small class="text-muted d-block mb-1">Bon Prix</small>
+                              <h6 class="mb-0">29-08-2022</h6>
+                            </div>
+                            <div class="user-progress d-flex align-items-center gap-1">
+                              <h6 class="mb-0">820.6</h6>
+                              <span class="text-muted">Dzd</span>
+                            </div>
+                          </div>
+                        </li>
+                        <li class="d-flex mb-4 pb-1">
+                          <div class="avatar flex-shrink-0 me-3">
+                            <img src="../assets/img/icons/unicons/wallet.png" alt="User" class="rounded" />
+                          </div>
+                          <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                            <div class="me-2">
+                              <small class="text-muted d-block mb-1">Traiangle d'or</small>
+                              <h6 class="mb-0">Date: 23-11-2022</h6>
+                            </div>
+                            <div class="user-progress d-flex align-items-center gap-1">
+                              <h6 class="mb-0">2700</h6>
+                              <span class="text-muted">Dzd</span>
+                            </div>
+                          </div>
+                        </li>
+                        <li class="d-flex mb-4 pb-1">
+                          <div class="avatar flex-shrink-0 me-3">
+                            <img src="../assets/img/icons/unicons/chart.png" alt="User" class="rounded" />
+                          </div>
+                          <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                            <div class="me-2">
+                              <small class="text-muted d-block mb-1">Siwar</small>
+                              <h6 class="mb-0">Date : 18-02-2023 </h6>
+                            </div>
+                            <div class="user-progress d-flex align-items-center gap-1">
+                              <h6 class="mb-0">6370</h6>
+                              <span class="text-muted">Dzd</span>
+                            </div>
+                          </div>
+                        </li>
+                        <li class="d-flex mb-4 pb-1">
+                          <div class="avatar flex-shrink-0 me-3">
+                            <img src="../assets/img/icons/unicons/cc-success.png" alt="User" class="rounded" />
+                          </div>
+                          <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                            <div class="me-2">
+                              <small class="text-muted d-block mb-1">Bon prix  </small>
+                              <h6 class="mb-0">Date : 20-01-2023</h6>
+                            </div>
+                            <div class="user-progress d-flex align-items-center gap-1">
+                              <h6 class="mb-0">8380</h6>
+                              <span class="text-muted">Dzd</span>
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
-              </div>
-            <!--/ Expense Overview -->
-            <!-- Contextual Classes -->
+                <div class="col-lg-12 col-md-12 col-lg-6 order-3 mb-4">
+                  <div class="card">
+                    <div class="row row-bordered g-0">
+                      <div class="col-md-8">
+                        <h5 class="card-header m-0 me-2 pb-3">Total Revenue</h5>
+                        <div id="totalRevenueChart" class="px-2"></div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="card-body">
+                          <div class="text-center">
+                            <div class="dropdown">
+                              <button
+                                class="btn btn-sm btn-outline-primary dropdown-toggle"
+                                type="button"
+                                id="growthReportId"
+                                data-bs-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false"
+                              >
+                                2022
+                              </button>
+                              <div class="dropdown-menu dropdown-menu-end" aria-labelledby="growthReportId">
+                                <a class="dropdown-item" href="javascript:void(0);">2021</a>
+                                <a class="dropdown-item" href="javascript:void(0);">2020</a>
+                                <a class="dropdown-item" href="javascript:void(0);">2019</a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div id="growthChart"></div>
+                        <div class="text-center fw-semibold pt-3 mb-2">62% Company Growth</div>
 
-            <!-- Transactions -->
-            <div class="col-lg-12 col-md-12 col-sm-12 order-3 mb-4">
-                <div class="card h-100">
-                  <div class="card-header d-flex align-items-center justify-content-between">
-                    <h5 class="card-title m-0 me-2">Recent Transactions</h5>
-                    <div class="dropdown">
-                      <button
-                        class="btn p-0"
-                        type="button"
-                        id="transactionID"
-                        data-bs-toggle="dropdown"
-                        aria-haspopup="true"
-                        aria-expanded="false"
-                      >
-                        <i class="bx bx-dots-vertical-rounded"></i>
-                      </button>
-                      <div class="dropdown-menu dropdown-menu-end" aria-labelledby="transactionID">
-                        <a class="dropdown-item" href="javascript:void(0);">Last 28 Days</a>
-                        <a class="dropdown-item" href="javascript:void(0);">Last Month</a>
-                        <a class="dropdown-item" href="javascript:void(0);">Last Year</a>
+                        <div class="d-flex px-xxl-4 px-lg-2 p-4 gap-xxl-3 gap-lg-1 gap-3 justify-content-between">
+                          <div class="d-flex">
+                            <div class="me-2">
+                              <span class="badge bg-label-primary p-2"><i class="bx bx-dollar text-primary"></i></span>
+                            </div>
+                            <div class="d-flex flex-column">
+                              <small>2022</small>
+                              <h6 class="mb-0">$32.5k</h6>
+                            </div>
+                          </div>
+                          <div class="d-flex">
+                            <div class="me-2">
+                              <span class="badge bg-label-info p-2"><i class="bx bx-wallet text-info"></i></span>
+                            </div>
+                            <div class="d-flex flex-column">
+                              <small>2021</small>
+                              <h6 class="mb-0">$41.2k</h6>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
-                  <div class="card-body">
-                    <ul class="p-0 m-0">
-                      <li class="d-flex mb-4 pb-1">
-                        <div class="avatar flex-shrink-0 me-3">
-                          <i class="bx bxs-credit-card"></i> 
-                        </div>
-                        <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                          <div class="me-2">
-                            <small class="text-muted d-block mb-1">Card 1 : offer reddemed</small>
-                            <h6 class="mb-0"style="color:#EB455F">with <b>Aguida Nabil</b></h6>
-                          </div>
-                          <div class="user-progress d-flex align-items-center gap-1">
-                            <h6 class="mb-0"style="color:#EB455F">+82.6</h6>
-                            <span class="text-muted">PTS</span>
-                          </div>
-                        </div>
-                      </li>
-                      <li class="d-flex mb-4 pb-1">
-                        <div class="avatar flex-shrink-0 me-3">
-                          <i class="bx bxs-credit-card"></i> 
-                        </div>
-                        <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                          <div class="me-2">
-                            <small class="text-muted d-block mb-1">Card 1 : offer reddemed</small>
-                            <h6 class="mb-0"style="color:#EB455F">with <b>Aguida Nabil</b></h6>
-                          </div>
-                          <div class="user-progress d-flex align-items-center gap-1">
-                            <h6 class="mb-0"style="color:#EB455F">+15</h6>
-                            <span class="text-muted">PTS</span>
-                          </div>
-                        </div>
-                      </li>
-                      <li class="d-flex mb-4 pb-1">
-                        <div class="avatar flex-shrink-0 me-3">
-                          <i class="bx bxs-credit-card"></i> 
-                        </div>
-                        <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                          <div class="me-2">
-                            <small class="text-muted d-block mb-1">Card 1 : Point given</small>
-                            <h6 class="mb-0"style="color:#EB455F">with <b>Bechane Achref</b></h6>
-                          </div>
-                          <div class="user-progress d-flex align-items-center gap-1">
-                            <h6 class="mb-0"style="color:#EB455F">+20</h6>
-                            <span class="text-muted">PTS</span>
-                          </div>
-                        </div>
-                      </li>
-                      <li class="d-flex mb-4 pb-1">
-                        <div class="avatar flex-shrink-0 me-3">
-                          <i class="bx bxs-credit-card"></i> 
-                        </div>
-                        <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                          <div class="me-2">
-                            <small class="text-muted d-block mb-1">Card 1 : Point given</small>
-                            <h6 class="mb-0"style="color:#EB455F">with <b>Achref bechane</b></h6>
-                          </div>
-                          <div class="user-progress d-flex align-items-center gap-1">
-                            <h6 class="mb-0"style="color:#EB455F">+66</h6>
-                            <span class="text-muted">PTS </span>
-                          </div>
-                        </div>
-                      </li>
-                    </ul>
+                </div>
+                
+              </div>
+              
+                <!--/ Transactions -->
+                <!-- table user by branche -->
+              <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 order-3 mb-4">
+                  <div class="card hidec">
+                    <h5 class="card-header">Customers </h5>
+                    <div class="table-responsive text-nowrap">
+                      <table class="table" >
+                        <alltable id="users-table">
+                          <thead>
+                            <tr>
+                              <th></th>
+                              <th>Name</th>
+                              <th>Phone Number</th>
+                              <th>Last purshase</th>
+                              <th>Email</th>
+                              <th>Total spent</th>
+                              <th>Ation</th>
+                            </tr>
+                          </thead>
+                          <tbody class="table-border-bottom-0" id="tbody">
+                          </tbody>
+                        </alltable>
+                        
+                      </table>
+                    </div>
                   </div>
                 </div>
               </div>
-              <!--/ Transactions -->
+            </div>
+            <div class="row branche2" id="br2">
+              <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 mt-4 mb-4">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="card-title d-flex align-items-start justify-content-between">
+                        <h5>Customer of the month</h5>
+                        <div class="dropdown">
+                          <button
+                            class="btn p-0"
+                            type="button"
+                            id="cardOpt1"
+                            data-bs-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false"
+                          >
+                            <i class="bx bx-dots-vertical-rounded"></i>
+                          </button>
+                          <div class="dropdown-menu" aria-labelledby="cardOpt1">
+                            <a class="dropdown-item" href="javascript:void(0);">View More</a>
+                          </div>
+                        </div>
+                      </div>
+                      <img src="../assets/img/avatars/7.png" alt="Avatar" class="rounded-circle" width="50px"
+                      height="50px" />
+                      <span class="card-title mb-2 span-brtitle">Achref bechane <span style="color:#16c40d"><b>+5500 DZA</b></span> </span>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--/ Expense Overview -->
+              <!-- Contextual Classes -->
+              <!-- Transactions -->
+              <div class="row">
+                  <div class="col-lg-12 col-md-12 col-sm-12 order-3 mb-4">
+                    <div class="card h-100">
+                      <div class="card-header d-flex align-items-center justify-content-between">
+                        <h5 class="card-title m-0 me-2">Recent Transactions <b>Branche 2 </b></h5>
+                        <div class="dropdown">
+                          <button
+                            class="btn p-0"
+                            type="button"
+                            id="transactionID"
+                            data-bs-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false"
+                          >
+                            <i class="bx bx-dots-vertical-rounded"></i>
+                          </button>
+                          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="transactionID">
+                            <a class="dropdown-item" href="javascript:void(0);">Last 28 Days</a>
+                            <a class="dropdown-item" href="javascript:void(0);">Last Month</a>
+                            <a class="dropdown-item" href="javascript:void(0);">Last Year</a>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="card-body">
+                        <ul class="p-0 m-0">
+                          <li class="d-flex mb-4 pb-1">
+                            <div class="avatar flex-shrink-0 me-3">
+                              <i class="bx bxs-credit-card"></i> 
+                            </div>
+                            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                              <div class="me-2">
+                                <small class="text-muted d-block mb-1">Card 1 : offer reddemed</small>
+                                <h6 class="mb-0"style="color:#EB455F">with <b>Aguida Nabil</b></h6>
+                              </div>
+                              <div class="user-progress d-flex align-items-center gap-1">
+                                <h6 class="mb-0"style="color:#EB455F">+82.6</h6>
+                                <span class="text-muted">PTS</span>
+                              </div>
+                            </div>
+                          </li>
+                          <li class="d-flex mb-4 pb-1">
+                            <div class="avatar flex-shrink-0 me-3">
+                              <i class="bx bxs-credit-card"></i> 
+                            </div>
+                            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                              <div class="me-2">
+                                <small class="text-muted d-block mb-1">Card 1 : offer reddemed</small>
+                                <h6 class="mb-0"style="color:#EB455F">with <b>Aguida Nabil</b></h6>
+                              </div>
+                              <div class="user-progress d-flex align-items-center gap-1">
+                                <h6 class="mb-0"style="color:#EB455F">+15</h6>
+                                <span class="text-muted">PTS</span>
+                              </div>
+                            </div>
+                          </li>
+                          <li class="d-flex mb-4 pb-1">
+                            <div class="avatar flex-shrink-0 me-3">
+                              <i class="bx bxs-credit-card"></i> 
+                            </div>
+                            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                              <div class="me-2">
+                                <small class="text-muted d-block mb-1">Card 1 : Point given</small>
+                                <h6 class="mb-0"style="color:#EB455F">with <b>Bechane Achref</b></h6>
+                              </div>
+                              <div class="user-progress d-flex align-items-center gap-1">
+                                <h6 class="mb-0"style="color:#EB455F">+20</h6>
+                                <span class="text-muted">PTS</span>
+                              </div>
+                            </div>
+                          </li>
+                          <li class="d-flex mb-4 pb-1">
+                            <div class="avatar flex-shrink-0 me-3">
+                              <i class="bx bxs-credit-card"></i> 
+                            </div>
+                            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                              <div class="me-2">
+                                <small class="text-muted d-block mb-1">Card 1 : Point given</small>
+                                <h6 class="mb-0"style="color:#EB455F">with <b>Achref bechane</b></h6>
+                              </div>
+                              <div class="user-progress d-flex align-items-center gap-1">
+                                <h6 class="mb-0"style="color:#EB455F">+66</h6>
+                                <span class="text-muted">PTS </span>
+                              </div>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                </div>
+              </div>
+                <!--/ Transactions -->
+                <!-- table user by branche -->
+              <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 order-3 mb-4">
+                  <div class="card hidec">
+                    <h5 class="card-header">Clients Of Branche <span id="branch_name"><b> s2 </b></span></h5>
+                    <div class="table-responsive text-nowrap">
+                      <table class="table" id="users-table">
+                        <thead>
+                          <tr>
+                            <th></th>
+                            <th>Name</th>
+                            <th>Phone Number</th>
+                            <th>Last purshase</th>
+                            <th>Email</th>
+                            <th>Total spent</th>
+                            <th>Ation</th>
+                          </tr>
+                        </thead>
+                        <tbody class="table-border-bottom-0" id="tbody">
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--/ table user by branche-->
             <!--/ Contextual Classes -->
           </div>
           <!-- / Content -->
@@ -964,111 +1004,112 @@
         </div>
         <!--fixed create -->
         <!--modal offer-->
-          <div class="modal fade" id="createoffer" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable " role="document">
-              <div class="modal-content ">
-                <div class="modal-body bg-3">
-      
-                  <div class="px-3 to-front">
-                    <div class="row align-items-center">
-                      <div class="col text-right">
-                        <a href="#" class="close-btn" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">
-                            <span class="icon-close2"></span>
-                          </span>
-                        </a>
-                      </div>
+        <div class="modal fade" id="createoffer" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable " role="document">
+            <div class="modal-content ">
+              <div class="modal-body bg-3">
+    
+                <div class="px-3 to-front">
+                  <div class="row align-items-center">
+                    <div class="col text-right">
+                      <a href="#" class="close-btn" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                          <span class="icon-close2"></span>
+                        </span>
+                      </a>
                     </div>
                   </div>
-                  <div class="p-4 to-front">
-                    <div class="row">
-                      <form action="#" method="post">
-                        <h4 class="text-center"> Create Offer</h4>
-                        <div class="col-lg-12 col-md-12 col-sm-12">
-                          <div class="mb-3"><!--Title-->
-                            <label for="exampleFormControlInput1" class="form-label">Title</label>
-                            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="your Offer Title">
-                          </div>
-                          <div class="mb-3"><!--Descriptiion-->
-                            <label for="exampleFormControlInput1" class="form-label">Descriptiion</label>
-                            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="your Offer Descriptiion">
-                          </div>
-                          
-                          <div class="mb-3"><!--Date end-->
-                            <label for="exampleFormControlInput1" class="form-label">Date end</label>
-                            <input type="date" class="form-control" id="exampleFormControlInput1" placeholder="your Offer Date end">
-                          </div>
-                          <div class="mb-3"><!--POINT-->
-                            <label for="exampleFormControlInput1" class="form-label">Point</label>
-                            <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="Points . . . ">
-                          </div>
+                </div>
+                <div class="p-4 to-front">
+                  <div class="row">
+                    <form action="#" method="post">
+                      <h4 class="text-center"> Create Offer</h4>
+                      <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="mb-3"><!--Title-->
+                          <label for="exampleFormControlInput1" class="form-label">Title</label>
+                          <input type="text" class="form-control" id="offerTitle" placeholder="your Offer Title">
                         </div>
-                        <div class="mb-3">
-                          <input type="button" value="Create" class="btn btn-danger btnbusi"/>
-                        </div> 
-                      </form>                    
-                    </div>
-                    <br>
-                    
+                        <div class="mb-3"><!--Descriptiion-->
+                          <label for="exampleFormControlInput1" class="form-label">Descriptiion</label>
+                          <input type="text" class="form-control" id="offerDescriptiion" placeholder="your Offer Descriptiion">
+                        </div>
+                        
+                        <div class="mb-3"><!--Date end-->
+                          <label for="exampleFormControlInput1" class="form-label">Date end</label>
+                          <input type="date" class="form-control" id="offerDate" placeholder="your Offer Date end">
+                        </div>
+                        <div class="mb-3"><!--POINT-->
+                          <label for="exampleFormControlInput1" class="form-label">Point</label>
+                          <input type="number" class="form-control" id="offerPoint" placeholder="Points . . . ">
+                        </div>
+                      </div>
+                      <div class="mb-3">
+                        <input type="button" value="Create" onclick="create_offer()" class="btn btn-danger btnbusi"/>
+                      </div> 
+                    </form>                    
                   </div>
+                  <br>
+                  
                 </div>
               </div>
             </div>
           </div>
-        <!--modal offer-->
+        </div>
+      <!--modal offer-->
         <!--modal transaction-->
-          <div class="modal fade" id="createtransaction" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable " role="document">
-              <div class="modal-content ">
-                <div class="modal-body bg-3">
-      
-                  <div class="px-3 to-front">
-                    <div class="row align-items-center">
-                      <div class="col text-right">
-                        <a href="#" class="close-btn" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">
-                            <span class="icon-close2"></span>
-                          </span>
-                        </a>
-                      </div>
+        <div class="modal fade" id="createtransaction" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable " role="document">
+            <div class="modal-content ">
+              <div class="modal-body bg-3">
+    
+                <div class="px-3 to-front">
+                  <div class="row align-items-center">
+                    <div class="col text-right">
+                      <a href="#" class="close-btn" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                          <span class="icon-close2"></span>
+                        </span>
+                      </a>
                     </div>
                   </div>
-                  <div class="p-4 to-front">
-                    <div class="row">
-                      <form action="#" method="post">
-                        <h4 class="text-center"> Create Transaction</h4>
-                        <div class="col-lg-12 col-md-12 col-sm-12">
-                          <div class="mb-3"><!--Title-->
-                            <label for="exampleFormControlInput1" class="form-label">Title</label>
-                            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="your Offer Title">
-                          </div>
-                          <div class="mb-3"><!--Descriptiion-->
-                            <label for="exampleFormControlInput1" class="form-label">Descriptiion</label>
-                            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="your Offer Descriptiion">
-                          </div>
+                </div>
+                <div class="p-4 to-front">
+                  <div class="row">
+                    <form method="post">
+                      <h4 class="text-center"> Create Transaction</h4>
+                      <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="mb-3"><!--dropdown client-->
+                          <label for="exampleFormControlInput1" class="form-label">Customer </label>
+                          <select class="custom-select form-select form-select-lg mb-3" id="selectcutomers">
+                            <option value="1">Customer...</option>
+                            
+                            
+                          </select>
+                          <label for="exampleFormControlInput1" class="form-label">Branch </label>
+                          <select class="custom-select form-select form-select-lg mb-3" id="selectbranch">
+                            <option value="">Branches...</option>
+
+                          </select>
                           
-                          <div class="mb-3"><!--Date end-->
-                            <label for="exampleFormControlInput1" class="form-label">Date end</label>
-                            <input type="date" class="form-control" id="exampleFormControlInput1" placeholder="your Offer Date end">
-                          </div>
-                          <div class="mb-3"><!--POINT-->
-                            <label for="exampleFormControlInput1" class="form-label">Point</label>
-                            <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="Points . . . ">
-                          </div>
                         </div>
-                        <div class="mb-3">
-                          <input type="button" value="Create" class="btn btn-danger btnbusi"/>
-                        </div> 
-                      </form>                    
-                    </div>
-                    <br>
-                    
+                        <div class="mb-3"><!--POINT-->
+                          <label for="exampleFormControlInput1" class="form-label">Point</label>
+                          <input type="number" class="form-control" id="transactionpoint" placeholder="Points . . . ">
+                        </div>
+                      </div>
+                      <div class="mb-3">
+                        <input type="button" value="Confirm Transaction" onclick="create_transaction()" class="btn btn-danger btnbusi"/>
+                      </div> 
+                    </form>                    
                   </div>
+                  <br>
+                  
                 </div>
               </div>
             </div>
           </div>
-        <!--modal transaction-->
+        </div>
+      <!--modal transaction-->
         <!--modal Branch-->
           <div class="modal fade" id="createbranch" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable " role="document">
@@ -1088,34 +1129,35 @@
                   </div>
                   <div class="p-4 to-front">
                     <div class="row">
-                      <form action="#" method="post">
+                      <form method="post">
                         <h4 class="text-center"> Create Branch</h4>
                         <div class="col-lg-12 col-md-12 col-sm-12">
                           <div class="mb-3"><!--Branche Name-->
                             <label for="exampleFormControlInput1" class="form-label">Branch Name</label>
-                            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter Branch  Name">
+                            <input type="text" class="form-control" id="branchname" placeholder="Enter Branch  Name">
                           </div>
                           <div class="mb-3"><!--Admin username-->
                             <label for="exampleFormControlInput1" class="form-label">Admin username</label>
-                            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter Branch Admin Username">
+                            <input type="text" class="form-control" id="adminbranchusername" placeholder="Enter Branch Admin Username">
                           </div>
                           
                           <div class="mb-3"><!--Admin Email-->
                             <label for="exampleFormControlInput1" class="form-label">Admin Email</label>
-                            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Enter Branch Admin Email">
+                            <input type="email" class="form-control" id="adminemail" placeholder="Enter Branch Admin Email">
                           </div>
                           
                           <div class="mb-3"><!--Admin Password-->
                             <label for="exampleFormControlInput1" class="form-label">Admin Password</label>
-                            <input type="password" class="form-control" id="exampleFormControlInput1" placeholder="Enter Branch Admin Password">
+                            <input type="password" class="form-control" id="adminbranchpassword" placeholder="Enter Branch Admin Password">
                           </div>
                           <div class="mb-3"><!--Adress-->
                             <label for="exampleFormControlInput1" class="form-label">Adress</label>
-                            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Branch Adresss  ">
+                            <input type="text" class="form-control" id="branchadress" placeholder="Branch Adresss  ">
                           </div>
                         </div>
                         <div class="mb-3">
-                          <input type="button" value="Create" class="btn btn-danger btnbusi"/>
+                          <input type="button" value="Create" onclick="create_branch()" class="btn btn-danger btnbusi"/>
+
                         </div> 
                       </form>                    
                     </div>
@@ -1147,6 +1189,10 @@
 
     <script src="../assets/vendor/js/menu.js"></script>
     <script src="../assets/vendor/js/newmain.js"></script>
+    <script src="../assets/vendor/js/index-flow-data.js"></script>
+    <script src="../assets/vendor/js/branches.js"></script>
+    <script src="../assets/vendor/js/iziToast.js"></script>
+
     <!-- endbuild -->
 
     <!-- Vendors JS -->

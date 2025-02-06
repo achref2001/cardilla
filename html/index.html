@@ -5,7 +5,7 @@
   dir="ltr"
   data-theme="theme-default"
   data-assets-path="../assets/"
-  data-template="vertical-menu-template-free"
+  
 >
   <head>
     <meta charset="utf-8" />
@@ -21,7 +21,7 @@
     <!-- Favicon -->
 
     <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />x  
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
@@ -29,7 +29,7 @@
     />
 
     <!-- Icons. Uncomment required icon fonts -->
-    <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
+    <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" /> <link rel="icon" type="image/ico" href="../assets/img/icons/unicons/favicon.ico">
 
     <!-- Core CSS -->
     <link rel="stylesheet" href="../assets/vendor/css/core.css" class="template-customizer-core-css" />
@@ -42,6 +42,7 @@
     <link rel="stylesheet" href="../assets/vendor/libs/apex-charts/apex-charts.css" />
     <link rel="stylesheet" href="../assets/vendor/css/mystyle.css" />
 
+    <link rel="stylesheet" href="../assets/vendor/css/iziToast.min.css">
     <!-- Page CSS -->
     <!--chart-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
@@ -51,9 +52,14 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../assets/js/config.js"></script>
+    
+    
   </head>
-
-  <body>
+  
+  <body onload="get_business();get_customers();get_card_info();get_offers();fetch_branches();get_branches();fetsh_transactions();">
+    
+    <div id="wallo"></div>
+   
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
@@ -63,8 +69,9 @@
           <div class="app-brand demo">
             <a href="index.html" class="app-brand-link">
               <span class="app-brand-logo demo">
+                <img src="../assets/img/icons/unicons/favicon.ico" width="40" height="40" alt="">
               </span>
-              <span class="app-brand-text demo menu-text fw-bolder ms-2">Cardilla</span>
+              <h2 class=" demo menu-text fw-bolder ms-2" style="margin-top:10px;color: #DB5544;">ARDILLA</h2>
             </a>
 
             <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -84,13 +91,13 @@
             
                 <ul class="">
                   <li class="menu-item">
-                    <div class="all-cards">                    
-                      <div class="nav-cards" data-card="1">
+                    <div class="all-cards" id="cardshap">                    
+                      <div class="nav-cards" id="nav-cards-color"   data-card="1">
                         <div class="image">
-                          <div class="logo-card"></div>
-                          <h3 class="text-center
-                          
-                          ">Achref</h3>
+                          <div class="logo-card">
+                            <div class="logoimgimgimg" id=""></div>
+                          </div>
+                          <h5 class="text-center" id="bname"></h5>
                           <div class="cardinfos">
                             <div class="left">
                               <h6 class="text-center">Experation date</h6>
@@ -102,6 +109,7 @@
                           <i class="bx bx-right-arrow-alt"></i>                          
                         </div>
                       </div>
+                      <!-- 
                       <div class="nav-cards" data-card="2">
                         <div class="image">
                           <div class="logo-card"></div>
@@ -147,7 +155,7 @@
                           <i class="bx bx-right-arrow-alt"></i>                          
                         </div>
                       </div>
-                    </div>
+                    </div>-->
                   </li>
                 </ul>
             </li>
@@ -155,15 +163,15 @@
             
              <!-- Dashboard -->
             <li class="menu-item"><!--dachboard-->
-              <a href="index.html" class="menu-link">
+              <a href="index.html" id="indexlink" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Dashboard</div>
               </a>
             </li>
             <li class="menu-item"><!--clients-->
-              <a href="client.html" class="menu-link">
+              <a href="Customers.html" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-user"></i>
-                <div data-i18n="Error">Client </div>
+                <div data-i18n="Error">Customers </div>
               </a>
             </li>
             <li class="menu-item"><!--Branches-->
@@ -176,13 +184,19 @@
               <a href="offer.html" class="menu-link">
                 <i class="menu-icon tf-icons bx bxs-offer"></i>
  
-                <div data-i18n="Error">offer </div>
+                <div data-i18n="Error">Offers </div>
               </a>
             </li>
             <li class="menu-item"><!--Cards-->
-              <a href="pages-misc-error.html"data-bs-toggle="modal" data-bs-target="#myModal"  class="menu-link">
+              <a href="pages-misc-error.html"data-bs-toggle="modal" data-bs-target="#cardModal"  class="menu-link">
                 <i class="menu-icon tf-icons bx bxs-credit-card"></i>
                 <div data-i18n="Error">Cards </div>
+              </a>
+            </li>
+            <li class="menu-item"><!--Cards-->
+              <a href="pages-misc-error.html"data-bs-toggle="modal" data-bs-target="#coponModal"  class="menu-link">
+                <i class="menu-icon tf-icons bx bxs-coupon"></i>
+                <div data-i18n="Error">Verify Coupons </div>
               </a>
             </li>
             <li class="menu-header small text-uppercase">
@@ -228,8 +242,8 @@
             </li>
           </ul>
         </aside>
-        <!--modal-->
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <!--modal card-->
+        <div class="modal fade" id="cardModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable " role="document">
             <div class="modal-content ">
               <div class="modal-body bg-3">
@@ -248,16 +262,15 @@
                 <div class="p-4 to-front">
                   <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12">
-                      <div class="imginsidecard">
+                      <div class="imginsidecard" id="modalBody">
                         <!--Card section-->
                           <li class="menu-item">
                             <ul class="">
-                              <li class="menu-item">
-                                                    
-                                  <div class="popup-cards" data-card="1">
-                                    <div class="image">
-                                      <div class="logo-card"></div>
-                                      <h3 class="text-center" style="margin-top: 40px;">Card Name</h3>
+                              <li class="menu-item">            
+                                  <div class="popup-cards" data-card="1" id="preview">
+                                    <div class="image" id="preview-content">
+                                      <div class="logo-card"><img src="../assets/img/01.png" id="cardsectionlogo" width=" 50px" height="50px" alt=""></div>
+                                      <h3 class="text-center" style="margin-top: 40px;" id="name"></h3>
                                     </div>
                                 </div>
                               </li>
@@ -270,58 +283,107 @@
                   </div>
                   <div class="row">
                     <div class="col-md-6 left_col">
-                      <div class="form-check mb-3">
-                        <label class="form-check-label" for="validationFormCheck1"><h6>Show Business name</h6></label>
-                        <label class="switch">
-                          <input type="checkbox">
-                          <span class="slider round"></span>
-                        </label>
-                      </div>
-                      
-                      <div class="form-check mb-3 ">  
-                        <h6>Pick your Card color</h6>
-                        <input type="color"  class="form-control form-control-color colorpick" id="exampleColorInput" value="#563d7c" title="Choose your color">
-                      </div>
-                      <div class="cardsys">
-                        <h5>Card system</h5>
-                        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                          <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
-                          <label class="btn btn-outline-danger btnbusi" for="btnradio1">Cheks</label>
-                        
-                          <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-                          <label class="btn btn-outline-danger btnbusi" for="btnradio2">Points</label>
+                      <form  method="put">
+                        <div class="form-check mb-3">
+                          <label class="form-check-label" for="validationFormCheck1"><h6>Show Business name</h6></label>
+                          <label class="switch">
+                            <input type="checkbox" id="switch">
+                            <span class="slider round"></span>
+                          </label>
                         </div>
-                      </div>
                       
-                      <br>
-                      <br>
+                        <div class="form-check mb-3 ">  
+                          <h6>Pick your Card color</h6>
+                          <input type="color"  class="form-control form-control-color colorpick" id="exampleColorInput" value="#563d7c" title="Choose your color">
+                        </div>
+                        <div class="cardsys">
+                          <h5>Card system</h5>
+                          <div class="form-group">
+                            <label for="holder_name" class="form-label required">Select card type</label>
+                            <div class="input-group mb-3">
+                                <select class="form-select" id="card_type">
+                                  <option selected>Choose...</option>
+                                  <option value="POINTS">POINTS</option>
+                                  <option value="CHECKS">CHECKS</option>
+                                </select>
+                            </div>
+                        </div>
+                        </div>
+                      
+                        <br>
+                        <br>
 
-                    </div>
-                    <div class="col-md-6">
-                      <div class="upload">
-                        <img src="../assets/img/12.jpg" width = 100 height = 100 alt="">
-                        <div class="round">
-                          <input type="file">
-                          <i class = "bx bx-plus-medical" style = "color: #fff;"></i>
                         </div>
-                      </div>
-                    </div>
-                    <br>
-                    <br><br>
-                    <br>
-                    
-                  </div>
-                  <br>
-                  <br>
-                  <div class="d-grid gap-2">
-                    <button type="button" class="btn btn-danger btnbusi">Done</button>
-                  </div> 
+                        <div class="col-md-6">
+                          <div class="upload">
+                            <img id="previewImage" src="../assets/img/uploadimage.png" width = 100 height = 100 alt="">
+                            <div class="round">
+                              <input type="file" id="logo"  onchange="previewImage(event)">
+                              <i class = "bx bx-plus-medical" style = "color: #fff;"></i>
+                            </div>
+                            <h1 id="extension" style="color:red;font-size: 12px;margin-top: 60px;"></h1>
+                          </div>
+                        </div>
+                        <br>
+                        <br><br>
+                        <br>
+                        </div><br><br>
+                        <div class="d-grid gap-2">
+                          <input type="button" class="btn btn-danger btnbusi" value="Done" onclick="uploadImage();get_card_info_update()">
+                        </div>
+                      </form> 
                 </div>
               </div>
             </div>
           </div>
         </div>
         <!--modal-->
+        <!--copon card-->
+        <div class="modal fade" id="coponModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable " role="document">
+            <div class="modal-content ">
+              <div class="modal-body bg-3">
+    
+                <div class="px-3 to-front">
+                  <div class="row align-items-center">
+                    <div class="col text-right">
+                      <a href="#" class="close-btn" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                          <span class="icon-close2"></span>
+                        </span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="p-4 to-front">
+                  <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                      <form >
+                        
+                        <div class="mb-3 row">
+                          <label for="inputPassword" class="col-sm-2 col-form-label">Copon</label>
+                          <div class="col-sm-10">
+                            <input type="text" class="form-control" id="coponcode">
+                          </div>
+                        </div>
+                        <div class="mb-3 row">
+
+                          <button type="button" onclick="verify_coupon()" style="background-color: tomato; border: none;" class="btn btn-primary">Verify</button>
+                        </div>
+                      </form>
+                      
+                    </div>
+                                            
+                  </div>
+                  
+                       
+                     
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--copon modal-->
         <!-- / Menu -->
 
         <!-- Layout container -->
@@ -339,28 +401,15 @@
             </div>
 
             <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-              <!-- Search -->
-              <div class="navbar-nav align-items-center">
-                
-                <div class="nav-item d-flex align-items-center">
-                  <i class="bx bx-search fs-4 lh-0"></i>
-                  <input
-                    type="text"
-                    class="form-control border-0 shadow-none"
-                    placeholder="Search..."
-                    aria-label="Search..."
-                  />
-                </div>
-              </div>
-              <!-- /Search -->
+              
 
               <ul class="navbar-nav flex-row align-items-center ms-auto">
                 <!-- Place this tag where you want the button to render. -->
                 <!-- User -->
                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                   <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                    <div class="avatar avatar-online">
-                      <img src="../assets/img/avatars/001.jpg" alt class="w-px-40 h-auto rounded-circle" />
+                    <div class="avatar avatar-online"id="businessimgs">
+                      <img src="http://10.7.3.130:8000/"   class="w-px-40 h-auto rounded-circle" />
                     </div>
                   </a>
                   <ul class="dropdown-menu dropdown-menu-end">
@@ -368,13 +417,13 @@
                       <a class="dropdown-item" href="#">
                         <div class="d-flex">
                           <div class="flex-shrink-0 me-3">
-                            <div class="avatar avatar-online">
-                              <img src="../assets/img/avatars/001.jpg" alt class="w-px-40 h-auto rounded-circle" />
+                            <div class="avatar avatar-online" id="businessimg">
+                              <img src="../assets/img/01.png" alt class="w-px-40 h-auto rounded-circle" />
                             </div>
                           </div>
                           <div class="flex-grow-1">
-                            <span class="fw-semibold d-block">Achref Bechane</span>
-                            <small class="text-muted">Admin</small>
+                            <span class="fw-semibold d-block" id="adminusername"><</span>
+                            <small class="text-muted" id="role">Admin</small>
                           </div>
                         </div>
                       </a>
@@ -407,7 +456,7 @@
                       <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="auth-login-basic.html">
+                      <a class="dropdown-item" onclick="logout()">
                         <i class="bx bx-power-off me-2"></i>
                         <span class="align-middle">Log Out</span>
                       </a>
@@ -432,7 +481,40 @@
                     <div class="d-flex align-items-end row">
                       <div class="col-sm-7">
                         <div class="card-body">
-                          <h5 class="card-title text-primary">Welcome Back Achref! </h5>
+                          <h5 class="card-title text-primary">Welcome Back <span id="admin"></span>! </h5>
+
+                          <!-- Button trigger modal -->
+
+                          <button type="button" class="btn btn-primary" style="background-color: tomato;border: none;" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            <img src="../assets/img/icons/unicons/qr-scan.png" alt="qr code">
+                            Generate QR code 
+                          </button> 
+
+                          <!-- Modal -->
+                          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title text-center" id="exampleModalLabel" >Get QR Code</h5>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                  <div class="brdropdown">
+                                    <div class="select">
+                                      <span>Select Branch to Generate QR code </span>
+                                      <i class="fa fa-chevron-left"></i>
+                                    </div>
+                                    <input type="hidden" name="gender">
+                                    <select class="btn dropdowbranches" role="button" id="branchesforqrcode"></select><br><br>
+                                  </div>
+                                  <div id="qrcode"></div>
+                                </div>
+                                <div class="modal-footer">
+                                  <button class="btn btn btn-primary " onclick="generateQRCode()">Generate </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       </div>
                       <div class="col-sm-5 text-center text-sm-left">
@@ -453,7 +535,7 @@
               <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 mt-4 mb-4 order-1">
                   <div class="row">
-                    <div class="col-lg-3 col-md-6 col-sm-12 mt-4 mb-4">
+                    <div class="col-lg-3 col-md-6 col-sm-12 mt-4 mb-4"><!--Customers-->
                       <div class="card">
                         <div class="card-body">
                           <div class="card-title d-flex align-items-start justify-content-between">
@@ -472,22 +554,51 @@
                                 <i class="bx bx-dots-vertical-rounded"></i>
                               </button>
                               <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt3">
-                                <a class="dropdown-item" href="javascript:void(0);">View More</a>
+                                <a class="dropdown-item" href="#client">View More</a>
                               </div>
                             </div>
                           </div>
-                          <span class="fw-semibold d-block mb-1">Total clients</span>
-                          <h3 class="card-title mb-2">0</h3>
-                          <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> +50</small>
+                          <span class="fw-semibold d-block mb-1">Total Customers</span>
+                          <h3 class="card-title mb-2" id="totalclient">0</h3>
+                          <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> +2</small>
                         </div>
                       </div>
                     </div>
-                    <div class="col-lg-3 col-md-6 col-sm-12 mt-4 mb-4">
+                    <div class="col-lg-3 col-md-6 col-sm-12 mt-4 mb-4"><!--Branches-->
                       <div class="card">
                         <div class="card-body">
                           <div class="card-title d-flex align-items-start justify-content-between">
                             <div class="avatar flex-shrink-0">
-                              <img src="../assets/img/icons/unicons/paypal.png" alt="Credit Card" class="rounded" />
+                              <i class="bx bx-git-branch"></i>
+                            </div>
+                            <div class="dropdown">
+                              <button
+                                class="btn p-0"
+                                type="button"
+                                id="cardOpt6"
+                                data-bs-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false"
+                              >
+                                <i class="bx bx-dots-vertical-rounded"></i>
+                              </button>
+                              <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt6">
+                                <a class="dropdown-item" href="#branchesforindexx">View More</a>
+                              </div>
+                            </div>
+                          </div>
+                          <span>Total Branches</span>
+                          <h3 class="card-title text-nowrap mb-1" id="numberofbranchesindexpage"></h3><!--totalbranches-->
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-12 mt-4 mb-4"><!--Offers-->
+                      <div class="card">
+                        <div class="card-body">
+                          <div class="card-title d-flex align-items-start justify-content-between">
+                            <div class="avatar flex-shrink-0">
+                              <i class="menu-icon tf-icons bx bx-gift"></i>
+
                             </div>
                             <div class="dropdown">
                               <button
@@ -501,22 +612,23 @@
                                 <i class="bx bx-dots-vertical-rounded"></i>
                               </button>
                               <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt4">
-                                <a class="dropdown-item" href="javascript:void(0);">View More</a>
+                                <a class="dropdown-item" href="#offer">View More</a>
                               </div>
                             </div>
                           </div>
-                          <span class="d-block mb-1">Pending Client</span>
-                          <h3 class="card-title text-nowrap mb-2">0 </h3>
-                          <small class="text-danger fw-semibold"><i class="bx bxs-hourglass"></i>0</small>
+                          <span class="d-block mb-1">Total Offers</span>
+                          <h3 class="card-title text-nowrap mb-2" ><span id="shownumb"></span></h3>
+                          <h3 class="card-title mb-2" id="totaloffers">2</h3>
+
                         </div>
                       </div>
                     </div>
-                    <div class="col-lg-3 col-md-6 col-sm-12 mt-4 mb-4">
+                    <div class="col-lg-3 col-md-6 col-sm-12 mt-4 mb-4"><!--incomes-->
                       <div class="card">
                         <div class="card-body">
                           <div class="card-title d-flex align-items-start justify-content-between">
                             <div class="avatar flex-shrink-0">
-                              <i class="bx bxs-user-pin"></i>
+                              <i class="bx  bx bx-money"></i>
                             </div>
                             <div class="dropdown">
                               <button
@@ -535,44 +647,12 @@
                             </div>
                           </div>
                           <span class="fw-semibold d-block mb-1">Total Incomes</span>
-                          <h3 class="card-title mb-2">5</h3>
-                          <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i>0</small>
+                          <h3 class="card-title mb-2">221456</h3>
+                          <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i>2600</small>
                         </div>
                       </div>
                     </div>
-                    <div class="col-lg-3 col-md-6 col-sm-12 mt-4 mb-4">
-                      <div class="card">
-                        <div class="card-body">
-                          <div class="card-title d-flex align-items-start justify-content-between">
-                            <div class="avatar flex-shrink-0">
-                              <img
-                                src="../assets/img/icons/unicons/wallet-info.png"
-                                alt="Credit Card"
-                                class="rounded"
-                              />
-                            </div>
-                            <div class="dropdown">
-                              <button
-                                class="btn p-0"
-                                type="button"
-                                id="cardOpt6"
-                                data-bs-toggle="dropdown"
-                                aria-haspopup="true"
-                                aria-expanded="false"
-                              >
-                                <i class="bx bx-dots-vertical-rounded"></i>
-                              </button>
-                              <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt6">
-                                <a class="dropdown-item" href="javascript:void(0);">View More</a>
-                              </div>
-                            </div>
-                          </div>
-                          <span>Total Cards</span>
-                          <h3 class="card-title text-nowrap mb-1">0</h3>
-                          <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i>60</small>
-                        </div>
-                      </div>
-                    </div>
+                    
                   </div>
                 </div>
                 <!-- Total Revenue -->
@@ -581,71 +661,122 @@
                 <!--/ Total Revenue -->
                 
               </div>
-              <!-- Expense Overview -->
               <div class="row">
-                <div class="col-lg-12 col-md-12 col-lg-4 order-2 mb-4">
-                  <div class="card h-100">
-                    <div class="card-header">
-                      <ul class="nav nav-pills" role="tablist">
-                        <li class="nav-item">
-                          <button
-                            type="button"
-                            class="nav-link active"
-                            role="tab"
-                            data-bs-toggle="tab"
-                            data-bs-target="#navs-tabs-line-card-income"
-                            aria-controls="navs-tabs-line-card-income"
-                            aria-selected="true"
-                          >
-                            Income
-                          </button>
-                        </li>
-                        <li class="nav-item">
-                          <button type="button" class="nav-link" role="tab">Expenses</button>
-                        </li>
-                        <li class="nav-item">
-                          <button type="button" class="nav-link" role="tab">Profit</button>
-                        </li>
-                      </ul>
-                    </div>
-                    <div class="card-body px-0">
-                      <div class="tab-content p-0">
-                        <div class="tab-pane fade show active" id="navs-tabs-line-card-income" role="tabpanel">
-                          <div class="d-flex p-4 pt-3">
-                            <div class="avatar flex-shrink-0 me-3">
-                              <img src="../assets/img/icons/unicons/wallet.png" alt="User" />
-                            </div>
-                            <div>
-                              <small class="text-muted d-block">Total Balance</small>
-                              <div class="d-flex align-items-center">
-                                <h6 class="mb-0 me-1">$459.10</h6>
-                                <small class="text-success fw-semibold">
-                                  <i class="bx bx-chevron-up"></i>
-                                  42.9%
-                                </small>
+              <!-- Expense Overview -->
+                  <div class="col-lg-12 col-md-12 col-lg-4 order-2 mb-4"><!--Incomes-->
+                    <div class="card h-100">
+                      <div class="card-header">
+                        <ul class="nav nav-pills" role="tablist">
+                          <li class="nav-item">
+                            <button
+                              type="button"
+                              class="nav-link "
+                              role="tab"
+                              data-bs-toggle="tab"
+                              data-bs-target="#navs-tabs-line-card-income"
+                              aria-controls="navs-tabs-line-card-income"
+                              aria-selected="true"
+                            >
+                              Income
+                            </button>
+                          </li>
+                          <li class="nav-item">
+                            <button type="button" class="nav-link active" role="tab">Customers</button>
+                          </li>
+                          <li class="nav-item">
+                            <button type="button" class="nav-link" role="tab"></button>
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="card-body px-0">
+                        <div class="tab-content p-0">
+                          <div class="tab-pane fade show active" id="navs-tabs-line-card-income" role="tabpanel">
+                            <div class="d-flex p-4 pt-3">
+                              <div class="avatar flex-shrink-0 me-3">
+                                <img src="../assets/img/icons/unicons/wallet.png" alt="User" />
+                              </div>
+                              <div>
+                                <small class="text-muted d-block">Total Customers</small>
+                                <!--
+
+  
+                                <div class="d-flex align-items-center">
+                                  <h6 class="mb-0 me-1">$459.10</h6>
+                                  <small class="text-success fw-semibold">
+                                    <i class="bx bx-chevron-up"></i>
+                                    42.9%
+                                  </small>
+                                </div>
+                                -->
                               </div>
                             </div>
-                          </div>
-                          <div id="incomeChart"></div>
-                          <div class="d-flex justify-content-center pt-4 gap-2">
-                            <div class="flex-shrink-0">
-                              <div id="expensesOfWeek"></div>
-                            </div>
-                            <div>
-                              <p class="mb-n1 mt-1">Expenses This Week</p>
-                              <small class="text-muted">$39 less than last week</small>
+                            <div id="incomeChart"></div>
+                            <div class="d-flex justify-content-center pt-4 gap-2">
+                              <div class="flex-shrink-0">
+                                <div id="expensesOfWeek"></div>
+                              </div>
+                              <div>
+                                <p class="mb-n1 mt-1">Expenses This Week</p>
+                                <small class="text-muted">$39 less than last week</small>
+                              </div>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
+                
+                  <!--/ Expense Overview -->
+                  <!--client table-->      
+                  <div class="col-lg-12 col-md-12 col-lg-4 order-2 mb-4">
+                    <div class="card" id="client"><!--client-->
+                      <h5 class="card-header">Customers</h5>
+                      <div class="table-responsive text-nowrap">
+                        <table class="table" id="users-table">
+                          <thead>
+                            <tr>
+                              <th></th>
+                              <th>Name</th>
+                              <th>Phone Number</th>
+                              <th>Last purshase</th>
+                              <th>Email</th>
+                              <th>Total spent</th>
+                              <th>Ation</th>
+                            </tr>
+                          </thead>
+                          <tbody class="table-border-bottom-0" id="tbody">
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>        
+                  <!--client table-->
+                
+                    <!--branches-->
+                    <div class="col-lg-12 col-md-12 col-sm-12 order-3 mb-4">
+                      <div class="card h-100">
+                        <div class="card-header d-flex align-items-center justify-content-between">
+                          <h5 class="card-title m-0 me-2">Branches </h5>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 mt-4 mb-4 order-1">
+                          <div clas="row" id="branchesforindexx">
+                            
+                          </div>
+                        </div>
+                        
+                      </div>
+                    </div>
               </div>
-              <!--/ Expense Overview -->
+                  
+                    
+  
+                
+                  
+                
+              <!--branches-->
               <!-- Transactions -->
-              <div class="row">
-                <div class="col-lg-6 col-md-6 order-3 mb-4">
+              <div class="row" >
+                <div class="col-lg-12 col-md-12 col-sm-12 order-6 mb-4"><!--transaction-->
                   <div class="card h-100">
                     <div class="card-header d-flex align-items-center justify-content-between">
                       <h5 class="card-title m-0 me-2">Transactions</h5>
@@ -668,345 +799,51 @@
                       </div>
                     </div>
                   <div class="card-body">
-                    <ul class="p-0 m-0">
-                      <li class="d-flex mb-4 pb-1">
-                        <div class="avatar flex-shrink-0 me-3">
-                          <i class="bx bxs-credit-card"></i> 
-                        </div>
-                        <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                          <div class="me-2">
-                            <small class="text-muted d-block mb-1">Card 1 : offer reddemed</small>
-                            <h6 class="mb-0">with <b>Aguida Nabil</b></h6>
-                          </div>
-                          <div class="user-progress d-flex align-items-center gap-1">
-                            <h6 class="mb-0">+82.6</h6>
-                            <span class="text-muted">PTS</span>
-                          </div>
-                        </div>
-                      </li>
-                      <li class="d-flex mb-4 pb-1">
-                        <div class="avatar flex-shrink-0 me-3">
-                          <i class="bx bxs-credit-card"></i> 
-                        </div>
-                        <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                          <div class="me-2">
-                            <small class="text-muted d-block mb-1">Card 1 : offer reddemed</small>
-                            <h6 class="mb-0">with <b>Aguida Nabil</b></h6>
-                          </div>
-                          <div class="user-progress d-flex align-items-center gap-1">
-                            <h6 class="mb-0">+15</h6>
-                            <span class="text-muted">PTS</span>
-                          </div>
-                        </div>
-                      </li>
-                      <li class="d-flex mb-4 pb-1">
-                        <div class="avatar flex-shrink-0 me-3">
-                          <i class="bx bxs-credit-card"></i> 
-                        </div>
-                        <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                          <div class="me-2">
-                            <small class="text-muted d-block mb-1">Card 1 : Point given</small>
-                            <h6 class="mb-0">with <b>Bechane Achref</b></h6>
-                          </div>
-                          <div class="user-progress d-flex align-items-center gap-1">
-                            <h6 class="mb-0">+20</h6>
-                            <span class="text-muted">PTS</span>
-                          </div>
-                        </div>
-                      </li>
-                      <li class="d-flex mb-4 pb-1">
-                        <div class="avatar flex-shrink-0 me-3">
-                          <i class="bx bxs-credit-card"></i> 
-                        </div>
-                        <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                          <div class="me-2">
-                            <small class="text-muted d-block mb-1">Card 1 : Point given</small>
-                            <h6 class="mb-0">with <b>Achref bechane</b></h6>
-                          </div>
-                          <div class="user-progress d-flex align-items-center gap-1">
-                            <h6 class="mb-0">+66</h6>
-                            <span class="text-muted">PTS </span>
-                          </div>
-                        </div>
-                      </li>
+                    <ul class="p-0 m-0" id="transactionsContainer">
+                      
                     </ul>
                   </div>
                 </div>
                 </div>
-                <div class="col-lg-6 col-md-6 order-3 mb-4">
-                  <div class="card h-100">
-                    <canvas id="myChart" style="width:100%;max-width:700px;"></canvas>
-                  </div>
-                </div>
+               
               </div>
               <!--/ Transactions -->
               <!-- Contextual Classes -->
-
-              <div class="card">
-                <h5 class="card-header">Clients</h5>
-                <div class="table-responsive text-nowrap">
-                  <table class="table">
-                    <thead>
-                      <tr>
-                        <th></th>
-                        <th>Name</th>
-                        <th>Phone Number</th>
-                        <th>Last purshase</th>
-                        <th>Card ID</th>
-                        <th>Total spent</th>
-                        <th>Ation</th>
-                      </tr>
-                    </thead>
-                    <tbody class="table-border-bottom-0">
-                      <tr class="table-default">
-                        <td>
-                          <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-                            <li
-                              data-bs-toggle="tooltip"
-                              data-popup="tooltip-custom"
-                              data-bs-placement="top"
-                              class="avatar avatar-xs pull-up"
-                              title="Christina Parker"
-                            >
-                              <img src="../assets/img/avatars/7.png" alt="Avatar" class="rounded-circle" />
-                            </li>
-                          </ul>
-                        </td>
-                        <td>Achref Bechane</td>
-                        <td><i class="fab fa-sketch fa-lg text-warning me-3"></i> <strong>07 81 82 84 71</strong></td>
-                        <td><span class="badge bg-label-primary me-1">11 / 12 / 2022</span></td>
-                        <td><span class="badge bg-label-primary me-1">0012</span></td>
-                        <td><span class="badge bg-label-primary me-1">5000 DzD</span></td>
-                        <td>
-                          <div class="dropdown">
-                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                              <i class="bx bx-dots-vertical-rounded"></i>
-                            </button>
-                            <div class="dropdown-menu">
-                              <a class="dropdown-item" href="javascript:void(0);"
-                                ><i class="bx bx-edit-alt me-1"></i> Edit</a
-                              >
-                              <a class="dropdown-item" href="javascript:void(0);"
-                                ><i class="bx bx-trash me-1"></i> Delete</a
-                              >
-                            </div>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr class="table-active">
-                        <td>
-                          <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-                            <li
-                              data-bs-toggle="tooltip"
-                              data-popup="tooltip-custom"
-                              data-bs-placement="top"
-                              class="avatar avatar-xs pull-up"
-                              title="Christina Parker"
-                            >
-                              <img src="../assets/img/avatars/7.png" alt="Avatar" class="rounded-circle" />
-                            </li>
-                          </ul>
-                        </td>
-                        <td>Achref Bechane</td>
-                        <td><i class="fab fa-sketch fa-lg text-warning me-3"></i> <strong>07 81 82 84 71</strong></td>
-                        <td><span class="badge bg-label-primary me-1">11 / 12 / 2022</span></td>
-                        <td><span class="badge bg-label-primary me-1">0012</span></td>
-                        <td><span class="badge bg-label-primary me-1">5000 DzD</span></td>
-                        <td>
-                          <div class="dropdown">
-                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                              <i class="bx bx-dots-vertical-rounded"></i>
-                            </button>
-                            <div class="dropdown-menu">
-                              <a class="dropdown-item" href="javascript:void(0);"
-                                ><i class="bx bx-edit-alt me-1"></i> Edit</a
-                              >
-                              <a class="dropdown-item" href="javascript:void(0);"
-                                ><i class="bx bx-trash me-1"></i> Delete</a
-                              >
-                            </div>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr class="table-default">
-                        <td>
-                          <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-                            <li
-                              data-bs-toggle="tooltip"
-                              data-popup="tooltip-custom"
-                              data-bs-placement="top"
-                              class="avatar avatar-xs pull-up"
-                              title="Christina Parker"
-                            >
-                              <img src="../assets/img/avatars/7.png" alt="Avatar" class="rounded-circle" />
-                            </li>
-                          </ul>
-                        </td>
-                        <td>Achref Bechane</td>
-                        <td><i class="fab fa-sketch fa-lg text-warning me-3"></i> <strong>07 81 82 84 71</strong></td>
-                        <td><span class="badge bg-label-primary me-1">11 / 12 / 2022</span></td>
-                        <td><span class="badge bg-label-primary me-1">0012</span></td>
-                        <td><span class="badge bg-label-primary me-1">5000 DzD</span></td>
-                        <td>
-                          <div class="dropdown">
-                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                              <i class="bx bx-dots-vertical-rounded"></i>
-                            </button>
-                            <div class="dropdown-menu">
-                              <a class="dropdown-item" href="javascript:void(0);"
-                                ><i class="bx bx-edit-alt me-1"></i> Edit</a
-                              >
-                              <a class="dropdown-item" href="javascript:void(0);"
-                                ><i class="bx bx-trash me-1"></i> Delete</a
-                              >
-                            </div>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr class="table-active">
-                        <td>
-                          <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-                            <li
-                              data-bs-toggle="tooltip"
-                              data-popup="tooltip-custom"
-                              data-bs-placement="top"
-                              class="avatar avatar-xs pull-up"
-                              title="Christina Parker"
-                            >
-                              <img src="../assets/img/avatars/7.png" alt="Avatar" class="rounded-circle" />
-                            </li>
-                          </ul>
-                        </td>
-                        <td>Achref Bechane</td>
-                        <td><i class="fab fa-sketch fa-lg text-warning me-3"></i> <strong>07 81 82 84 71</strong></td>
-                        <td><span class="badge bg-label-primary me-1">11 / 12 / 2022</span></td>
-                        <td><span class="badge bg-label-primary me-1">0012</span></td>
-                        <td><span class="badge bg-label-primary me-1">5000 DzD</span></td>
-                        <td>
-                          <div class="dropdown">
-                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                              <i class="bx bx-dots-vertical-rounded"></i>
-                            </button>
-                            <div class="dropdown-menu">
-                              <a class="dropdown-item" href="javascript:void(0);"
-                                ><i class="bx bx-edit-alt me-1"></i> Edit</a
-                              >
-                              <a class="dropdown-item" href="javascript:void(0);"
-                                ><i class="bx bx-trash me-1"></i> Delete</a
-                              >
-                            </div>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr class="table-default">
-                        <td>
-                          <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-                            <li
-                              data-bs-toggle="tooltip"
-                              data-popup="tooltip-custom"
-                              data-bs-placement="top"
-                              class="avatar avatar-xs pull-up"
-                              title="Christina Parker"
-                            >
-                              <img src="../assets/img/avatars/7.png" alt="Avatar" class="rounded-circle" />
-                            </li>
-                          </ul>
-                        </td>
-                        <td>Achref Bechane</td>
-                        <td><i class="fab fa-sketch fa-lg text-warning me-3"></i> <strong>07 81 82 84 71</strong></td>
-                        <td><span class="badge bg-label-primary me-1">11 / 12 / 2022</span></td>
-                        <td><span class="badge bg-label-primary me-1">0012</span></td>
-                        <td><span class="badge bg-label-primary me-1">5000 DzD</span></td>
-                        <td>
-                          <div class="dropdown">
-                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                              <i class="bx bx-dots-vertical-rounded"></i>
-                            </button>
-                            <div class="dropdown-menu">
-                              <a class="dropdown-item" href="javascript:void(0);"
-                                ><i class="bx bx-edit-alt me-1"></i> Edit</a
-                              >
-                              <a class="dropdown-item" href="javascript:void(0);"
-                                ><i class="bx bx-trash me-1"></i> Delete</a
-                              >
-                            </div>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr class="table-active">
-                        <td>
-                          <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-                            <li
-                              data-bs-toggle="tooltip"
-                              data-popup="tooltip-custom"
-                              data-bs-placement="top"
-                              class="avatar avatar-xs pull-up"
-                              title="Christina Parker"
-                            >
-                              <img src="../assets/img/avatars/7.png" alt="Avatar" class="rounded-circle" />
-                            </li>
-                          </ul>
-                        </td>
-                        <td>Achref Bechane</td>
-                        <td><i class="fab fa-sketch fa-lg text-warning me-3"></i> <strong>07 81 82 84 71</strong></td>
-                        <td><span class="badge bg-label-primary me-1">11 / 12 / 2022</span></td>
-                        <td><span class="badge bg-label-primary me-1">0012</span></td>
-                        <td><span class="badge bg-label-primary me-1">5000 DzD</span></td>
-                        <td>
-                          <div class="dropdown">
-                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                              <i class="bx bx-dots-vertical-rounded"></i>
-                            </button>
-                            <div class="dropdown-menu">
-                              <a class="dropdown-item" href="javascript:void(0);"
-                                ><i class="bx bx-edit-alt me-1"></i> Edit</a
-                              >
-                              <a class="dropdown-item" href="javascript:void(0);"
-                                ><i class="bx bx-trash me-1"></i> Delete</a
-                              >
-                            </div>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr class="table-default">
-                        <td>
-                          <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-                            <li
-                              data-bs-toggle="tooltip"
-                              data-popup="tooltip-custom"
-                              data-bs-placement="top"
-                              class="avatar avatar-xs pull-up"
-                              title="Christina Parker"
-                            >
-                              <img src="../assets/img/avatars/7.png" alt="Avatar" class="rounded-circle" />
-                            </li>
-                          </ul>
-                        </td>
-                        <td>Achref Bechane</td>
-                        <td><i class="fab fa-sketch fa-lg text-warning me-3"></i> <strong>07 81 82 84 71</strong></td>
-                        <td><span class="badge bg-label-primary me-1">11 / 12 / 2022</span></td>
-                        <td><span class="badge bg-label-primary me-1">0012</span></td>
-                        <td><span class="badge bg-label-primary me-1">5000 DzD</span></td>
-                        <td>
-                          <div class="dropdown">
-                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                              <i class="bx bx-dots-vertical-rounded"></i>
-                            </button>
-                            <div class="dropdown-menu">
-                              <a class="dropdown-item" href="javascript:void(0);"
-                                ><i class="bx bx-edit-alt me-1"></i> Edit</a
-                              >
-                              <a class="dropdown-item" href="javascript:void(0);"
-                                ><i class="bx bx-trash me-1"></i> Delete</a
-                              >
-                            </div>
-                          </div>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
+              <!--offer table-->
+              <div class="row" id="offer">
+                <div class="col-lg-12 col-md-12 col-sm-12 order-3 mb-4"><!--offer-->
+                  <div class="card h-100">
+                    <div class="card-header d-flex align-items-center justify-content-between">
+                      <h5 class="card-title m-0 me-2">Offers </h5>
+                      <div class="dropdown"><!--duration-->
+                        <button
+                          class="btn p-0"
+                          type="button"
+                          id="transactionID"
+                          data-bs-toggle="dropdown"
+                          aria-haspopup="true"
+                          aria-expanded="false"
+                        >
+                          <i class="bx bx-dots-vertical-rounded"></i>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="transactionID">
+                          <a class="dropdown-item" href="javascript:void(0);">Last 28 Days</a>
+                          <a class="dropdown-item" href="javascript:void(0);">Last Month</a>
+                          <a class="dropdown-item" href="javascript:void(0);">Last Year</a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card-body">
+                      <div class="row" id="offers">
+                        
+                      </div>
+                      
+                    </div>
+                  </div>
+                </div>   
+              </div>        
+              <!--offer table-->              
+              
               <!--/ Contextual Classes -->
             </div>
             <!-- / Content -->
@@ -1085,24 +922,24 @@
                           <div class="col-lg-12 col-md-12 col-sm-12">
                             <div class="mb-3"><!--Title-->
                               <label for="exampleFormControlInput1" class="form-label">Title</label>
-                              <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="your Offer Title">
+                              <input type="text" class="form-control" id="offerTitle" placeholder="your Offer Title">
                             </div>
                             <div class="mb-3"><!--Descriptiion-->
                               <label for="exampleFormControlInput1" class="form-label">Descriptiion</label>
-                              <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="your Offer Descriptiion">
+                              <input type="text" class="form-control" id="offerDescriptiion" placeholder="your Offer Descriptiion">
                             </div>
                             
                             <div class="mb-3"><!--Date end-->
                               <label for="exampleFormControlInput1" class="form-label">Date end</label>
-                              <input type="date" class="form-control" id="exampleFormControlInput1" placeholder="your Offer Date end">
+                              <input type="date" class="form-control" id="offerDate" placeholder="your Offer Date end">
                             </div>
                             <div class="mb-3"><!--POINT-->
                               <label for="exampleFormControlInput1" class="form-label">Point</label>
-                              <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="Points . . . ">
+                              <input type="number" class="form-control" id="offerPoint" placeholder="Points . . . ">
                             </div>
                           </div>
                           <div class="mb-3">
-                            <input type="button" value="Create" class="btn btn-danger btnbusi"/>
+                            <input type="button" value="Create" onclick="create_offer()" class="btn btn-danger btnbusi"/>
                           </div> 
                         </form>                    
                       </div>
@@ -1133,29 +970,30 @@
                     </div>
                     <div class="p-4 to-front">
                       <div class="row">
-                        <form action="#" method="post">
+                        <form method="post">
                           <h4 class="text-center"> Create Transaction</h4>
                           <div class="col-lg-12 col-md-12 col-sm-12">
-                            <div class="mb-3"><!--Title-->
-                              <label for="exampleFormControlInput1" class="form-label">Title</label>
-                              <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="your Offer Title">
-                            </div>
-                            <div class="mb-3"><!--Descriptiion-->
-                              <label for="exampleFormControlInput1" class="form-label">Descriptiion</label>
-                              <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="your Offer Descriptiion">
-                            </div>
-                            
-                            <div class="mb-3"><!--Date end-->
-                              <label for="exampleFormControlInput1" class="form-label">Date end</label>
-                              <input type="date" class="form-control" id="exampleFormControlInput1" placeholder="your Offer Date end">
+                            <div class="mb-3"><!--dropdown client-->
+                              <label for="exampleFormControlInput1" class="form-label">Customer </label>
+                              <select class="custom-select form-select form-select-lg mb-3" id="selectcutomers">
+                                <option value="1">Customer...</option>
+                                
+                                
+                              </select>
+                              <label for="exampleFormControlInput1" class="form-label">Branch </label>
+                              <select class="custom-select form-select form-select-lg mb-3" id="selectbranch">
+                                <option value="">Branches...</option>
+
+                              </select>
+                              
                             </div>
                             <div class="mb-3"><!--POINT-->
                               <label for="exampleFormControlInput1" class="form-label">Point</label>
-                              <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="Points . . . ">
+                              <input type="number" class="form-control" id="transactionpoint" placeholder="Points . . . ">
                             </div>
                           </div>
                           <div class="mb-3">
-                            <input type="button" value="Create" class="btn btn-danger btnbusi"/>
+                            <input type="button" value="Confirm Transaction" onclick="create_transaction()" class="btn btn-danger btnbusi"/>
                           </div> 
                         </form>                    
                       </div>
@@ -1168,63 +1006,64 @@
             </div>
           <!--modal transaction-->
           <!--modal Branch-->
-            <div class="modal fade" id="createbranch" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-              <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable " role="document">
-                <div class="modal-content ">
-                  <div class="modal-body bg-3">
-        
-                    <div class="px-3 to-front">
-                      <div class="row align-items-center">
-                        <div class="col text-right">
-                          <a href="#" class="close-btn" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">
-                              <span class="icon-close2"></span>
-                            </span>
-                          </a>
-                        </div>
+          <div class="modal fade" id="createbranch" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable " role="document">
+              <div class="modal-content ">
+                <div class="modal-body bg-3">
+      
+                  <div class="px-3 to-front">
+                    <div class="row align-items-center">
+                      <div class="col text-right">
+                        <a href="#" class="close-btn" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">
+                            <span class="icon-close2"></span>
+                          </span>
+                        </a>
                       </div>
                     </div>
-                    <div class="p-4 to-front">
-                      <div class="row">
-                        <form action="#" method="post">
-                          <h4 class="text-center"> Create Branch</h4>
-                          <div class="col-lg-12 col-md-12 col-sm-12">
-                            <div class="mb-3"><!--Branche Name-->
-                              <label for="exampleFormControlInput1" class="form-label">Branch Name</label>
-                              <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter Branch  Name">
-                            </div>
-                            <div class="mb-3"><!--Admin username-->
-                              <label for="exampleFormControlInput1" class="form-label">Admin username</label>
-                              <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter Branch Admin Username">
-                            </div>
-                            
-                            <div class="mb-3"><!--Admin Email-->
-                              <label for="exampleFormControlInput1" class="form-label">Admin Email</label>
-                              <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Enter Branch Admin Email">
-                            </div>
-                            
-                            <div class="mb-3"><!--Admin Password-->
-                              <label for="exampleFormControlInput1" class="form-label">Admin Password</label>
-                              <input type="password" class="form-control" id="exampleFormControlInput1" placeholder="Enter Branch Admin Password">
-                            </div>
-                            <div class="mb-3"><!--Adress-->
-                              <label for="exampleFormControlInput1" class="form-label">Adress</label>
-                              <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Branch Adresss  ">
-                            </div>
+                  </div>
+                  <div class="p-4 to-front">
+                    <div class="row">
+                      <form method="post">
+                        <h4 class="text-center"> Create Branch</h4>
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                          <div class="mb-3"><!--Branche Name-->
+                            <label for="exampleFormControlInput1" class="form-label">Branch Name</label>
+                            <input type="text" class="form-control" id="branchname" placeholder="Enter Branch  Name">
                           </div>
-                          <div class="mb-3">
-                            <input type="button" value="Create" class="btn btn-danger btnbusi"/>
-                          </div> 
-                        </form>                    
-                      </div>
-                      <br>
-                      
+                          <div class="mb-3"><!--Admin username-->
+                            <label for="exampleFormControlInput1" class="form-label">Admin username</label>
+                            <input type="text" class="form-control" id="adminbranchusername" placeholder="Enter Branch Admin Username">
+                          </div>
+                          
+                          <div class="mb-3"><!--Admin Email-->
+                            <label for="exampleFormControlInput1" class="form-label">Admin Email</label>
+                            <input type="email" class="form-control" id="adminemail" placeholder="Enter Branch Admin Email">
+                          </div>
+                          
+                          <div class="mb-3"><!--Admin Password-->
+                            <label for="exampleFormControlInput1" class="form-label">Admin Password</label>
+                            <input type="password" class="form-control" id="adminbranchpassword" placeholder="Enter Branch Admin Password">
+                          </div>
+                          <div class="mb-3"><!--Adress-->
+                            <label for="exampleFormControlInput1" class="form-label">Adress</label>
+                            <input type="text" class="form-control" id="branchadress" placeholder="Branch Adresss  ">
+                          </div>
+                        </div>
+                        <div class="mb-3">
+                          <input type="button" value="Create" onclick="create_branch()" class="btn btn-danger btnbusi"/>
+
+                        </div> 
+                      </form>                    
                     </div>
+                    <br>
+                    
                   </div>
                 </div>
               </div>
             </div>
-          <!--modal Branch-->
+          </div>
+          <!--modal Branch  <input type="button" value="Create" onclick="create_branch()" id="createbranch" class="btn btn-danger btnbusi"  />   -->
               
             
             
@@ -1242,6 +1081,8 @@
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
+    
+     <script src="../assets/vendor/js/iziToast.js"></script>
     <script src="../assets/vendor/libs/jquery/jquery.js"></script>
     <script src="../assets/vendor/libs/popper/popper.js"></script>
     <script src="../assets/vendor/js/bootstrap.js"></script>
@@ -1256,11 +1097,14 @@
     <!-- Main JS -->
     <script src="../assets/js/main.js"></script>
     <script src="../assets/vendor/js/newmain.js"></script>
-    <script src="../assets/vendor/js/send-main.js"></script>
+    <script src="../assets/vendor/js/branches.js"></script>
+
+    <script src="../assets/js/qrcode.min.js"></script>
+
+    <script  src="../assets/vendor/js/index-flow-data.js"></script>
 
     <!-- Page JS -->
     <script src="../assets/js/dashboards-analytics.js"></script>
-    <script src="../assets/vendor/js/newmain.js"></script>
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>

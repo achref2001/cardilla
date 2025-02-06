@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Image Converter</title>
+  <style>
+    .output-image {
+      margin-top: 20px;
+      max-width: 400px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Image Converter</h1>
+
+  <form id="imageForm">
+    <input type="file" id="logo" accept="image/*">
+    <img id="cardsectionlogo" class="output-image" src="../assets/img/12.jpg" alt="Card Section Logo">
+  </form>
+
+  <div id="outputContainer">
+    <h2>Output Image:</h2>
+    <img id="outputImage" class="output-image" src="" alt="Output Image">
+    <button id="downloadButton" disabled>Download PNG</button>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const fileInput = document.getElementById("logo");
+      const previewImage = document.getElementById("cardsectionlogo");
+
+      fileInput.addEventListener("change", function (event) {
+        const file = event.target.files[0];
+
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function () {
+            previewImage.src = reader.result;
+            // Convert the loaded image to PNG with transparent background
+            convertToPNGWithTransparentBackground(previewImage);
+
+            // Enable the download button
+            const downloadButton = document.getElementById('downloadButton');
+            downloadButton.disabled = false;
+          };
+          reader.readAsDataURL(file);
+        } else {
+          previewImage.src = "../assets/img/12.jpg"; // Default image if no file selected
+        }
+      });
+    });
+
+    function convertToPNGWithTransparentBackground(imageElement) {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+
+      canvas.width = imageElement.width;
+      canvas.height = imageElement.height;
+
+      // Clear the canvas
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Draw the image on the canvas
+      ctx.drawImage(imageElement, 0, 0);
+
+      // Set the canvas background to transparent
+      ctx.globalCompositeOperation = 'destination-out';
+      ctx.fillStyle = 'rgba(0, 0, 0, 0)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Set the converted image as the source of the output image element
+      const outputImage = document.getElementById('outputImage');
+      outputImage.src = canvas.toDataURL('image/png');
+    }
+
+    document.getElementById('downloadButton').addEventListener('click', function() {
+      const outputImage = document.getElementById('outputImage');
+      
+      // Create a new canvas to draw the resized image
+      const resizedCanvas = document.createElement('canvas');
+      const resizedCtx = resizedCanvas.getContext('2d');
+      
+      resizedCanvas.width = 100;
+      resizedCanvas.height = 100;
+      
+      // Draw the resized image on the canvas with border radius
+      resizedCtx.beginPath();
+      resizedCtx.arc(50, 50, 50, 0, 2 * Math.PI);
+      resizedCtx.closePath();
+      resizedCtx.clip();
+      resizedCtx.drawImage(outputImage, 0, 0, 100, 100);
+      
+      // Create a temporary anchor element to download the PNG
+      const downloadLink = document.createElement('a');
+      downloadLink.href = resizedCanvas.toDataURL('image/png');
+      downloadLink.download = 'output.png';
+      downloadLink.click();
+    });
+  </script>
+</body>
+</html

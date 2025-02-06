@@ -5,7 +5,7 @@
   dir="ltr"
   data-theme="theme-default"
   data-assets-path="../assets/"
-  data-template="vertical-menu-template-free"
+  
 >
   <head>
     <meta charset="utf-8" />
@@ -14,7 +14,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Card page</title>
+    <title>Offer page</title>
 
     <meta name="description" content="" />
 
@@ -27,7 +27,7 @@
     />
 
     <!-- Icons. Uncomment required icon fonts -->
-    <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
+    <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" /> <link rel="icon" type="image/ico" href="../assets/img/icons/unicons/favicon.ico">
 
     <!-- Core CSS -->
     <link rel="stylesheet" href="../assets/vendor/css/core.css" class="template-customizer-core-css" />
@@ -49,7 +49,7 @@
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../assets/js/config.js"></script>
   </head>
-<body>
+<body onload="get_offers();get_card_info();fetsh_transactions()">
   <div class="layout-wrapper layout-content-navbar">
     <div class="layout-container">
       <!-- Menu -->
@@ -58,8 +58,9 @@
         <div class="app-brand demo">
           <a href="index.html" class="app-brand-link">
             <span class="app-brand-logo demo">
+              <img src="../assets/img/icons/unicons/favicon.ico" width="40" height="40" alt="">
             </span>
-            <span class="app-brand-text demo menu-text fw-bolder ms-2">Cardilla</span>
+            <h2 class=" demo menu-text fw-bolder ms-2" style="margin-top:10px;color: #DB5544;">ARDILLA</h2>
           </a>
 
           <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -79,13 +80,13 @@
           
               <ul class="">
                 <li class="menu-item">
-                  <div class="all-cards">                    
-                    <div class="nav-cards" data-card="1">
+                  <div class="all-cards" id="cardshapoffer">                    
+                    <div class="nav-cards" id="nav-cards-color"  data-card="1">
                       <div class="image">
-                        <div class="logo-card"></div>
-                        <h3 class="text-center
-                        
-                        ">Achref</h3>
+                        <div class="logo-card">
+                          <div id="logodiv"></div>
+                        </div>
+                        <h5 class="text-center" id="bname">Achref</h5>
                         <div class="cardinfos">
                           <div class="left">
                             <h6 class="text-center">Experation date</h6>
@@ -97,6 +98,7 @@
                         <i class="bx bx-right-arrow-alt"></i>                          
                       </div>
                     </div>
+                    <!-- 
                     <div class="nav-cards" data-card="2">
                       <div class="image">
                         <div class="logo-card"></div>
@@ -142,7 +144,7 @@
                         <i class="bx bx-right-arrow-alt"></i>                          
                       </div>
                     </div>
-                  </div>
+                  </div>-->
                 </li>
               </ul>
           </li>
@@ -150,34 +152,40 @@
           
            <!-- Dashboard -->
           <li class="menu-item"><!--dachboard-->
-            <a href="index.html" class="menu-link">
+            <a href="index.html" id="indexlink" class="menu-link">
               <i class="menu-icon tf-icons bx bx-home-circle"></i>
               <div data-i18n="Analytics">Dashboard</div>
             </a>
           </li>
           <li class="menu-item"><!--clients-->
-            <a href="client.html" class="menu-link">
+            <a href="Customers.html" class="menu-link">
               <i class="menu-icon tf-icons bx bx-user"></i>
-              <div data-i18n="Error">Client </div>
+              <div data-i18n="Error">Customers </div>
             </a>
           </li>
           <li class="menu-item"><!--Branches-->
             <a href="Branches.html" class="menu-link">
               <i class="menu-icon tf-icons bx bx-git-branch"></i> 
-              <div data-i18n="Error">Branches </div>
+              <div data-i18n="Error">Branches  </div>
             </a>
           </li>
           <li class="menu-item"><!--offer-->
             <a href="offer.html" class="menu-link">
               <i class="menu-icon tf-icons bx bxs-offer"></i>
 
-              <div data-i18n="Error">offer </div>
+              <div data-i18n="Error">Offers </div>
             </a>
           </li>
           <li class="menu-item"><!--Cards-->
-            <a href="pages-misc-error.html"data-bs-toggle="modal" data-bs-target="#myModal"  class="menu-link">
+            <a href="pages-misc-error.html"data-bs-toggle="modal" data-bs-target="#cardModal"  class="menu-link">
               <i class="menu-icon tf-icons bx bxs-credit-card"></i>
               <div data-i18n="Error">Cards </div>
+            </a>
+          </li>
+          <li class="menu-item"><!--coupons-->
+            <a href="pages-misc-error.html"data-bs-toggle="modal" data-bs-target="#coponModal"  class="menu-link">
+              <i class="menu-icon tf-icons bx bxs-coupon"></i>
+              <div data-i18n="Error">Verify Coupons </div>
             </a>
           </li>
           <li class="menu-header small text-uppercase">
@@ -223,8 +231,8 @@
           </li>
         </ul>
       </aside>
-      <!--modal-->
-      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+       <!--modal card-->
+       <div class="modal fade" id="cardModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable " role="document">
           <div class="modal-content ">
             <div class="modal-body bg-3">
@@ -243,17 +251,15 @@
               <div class="p-4 to-front">
                 <div class="row">
                   <div class="col-lg-12 col-md-12 col-sm-12">
-                    <div class="imginsidecard">
+                    <div class="imginsidecard" id="modalBody">
                       <!--Card section-->
                         <li class="menu-item">
                           <ul class="">
-                            <li class="menu-item">
-                                                  
-                                <div class="popup-cards" data-card="1">
-                                  <div class="image">
-                                    <div class="logo-card"></div>
-                                    <h3 class="text-center" style="margin-top: 40px;">Card Name</h3>
-                                    
+                            <li class="menu-item">            
+                                <div class="popup-cards" data-card="1" id="preview">
+                                  <div class="image" id="preview-content">
+                                    <div class="logo-card"><img src="../assets/img/01.png" id="cardsectionlogo" width=" 50px" height="50px" alt=""></div>
+                                    <h3 class="text-center" style="margin-top: 40px;" id="name"></h3>
                                   </div>
                               </div>
                             </li>
@@ -266,58 +272,107 @@
                 </div>
                 <div class="row">
                   <div class="col-md-6 left_col">
-                    <div class="form-check mb-3">
-                      <label class="form-check-label" for="validationFormCheck1"><h6>Show Business name</h6></label>
-                      <label class="switch">
-                        <input type="checkbox">
-                        <span class="slider round"></span>
-                      </label>
-                    </div>
-                    
-                    <div class="form-check mb-3 ">  
-                      <h6>Pick your Card color</h6>
-                      <input type="color"  class="form-control form-control-color colorpick" id="exampleColorInput" value="#563d7c" title="Choose your color">
-                    </div>
-                    <div class="cardsys">
-                      <h5>Card system</h5>
-                      <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
-                        <label class="btn btn-outline-danger btnbusi" for="btnradio1">Cheks</label>
-                      
-                        <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-                        <label class="btn btn-outline-danger btnbusi" for="btnradio2">Points</label>
+                    <form  method="put">
+                      <div class="form-check mb-3">
+                        <label class="form-check-label" for="validationFormCheck1"><h6>Show Business name</h6></label>
+                        <label class="switch">
+                          <input type="checkbox" id="switch">
+                          <span class="slider round"></span>
+                        </label>
                       </div>
-                    </div>
                     
-                    <br>
-                    <br>
+                      <div class="form-check mb-3 ">  
+                        <h6>Pick your Card color</h6>
+                        <input type="color"  class="form-control form-control-color colorpick" id="exampleColorInput" value="#563d7c" title="Choose your color">
+                      </div>
+                      <div class="cardsys">
+                        <h5>Card system</h5>
+                        <div class="form-group">
+                          <label for="holder_name" class="form-label required">Select card type</label>
+                          <div class="input-group mb-3">
+                              <select class="form-select" id="card_type">
+                                <option selected>Choose...</option>
+                                <option value="POINTS">POINTS</option>
+                                <option value="CHECKS">CHECKS</option>
+                              </select>
+                          </div>
+                      </div>
+                      </div>
+                    
+                      <br>
+                      <br>
 
-                  </div>
-                  <div class="col-md-6">
-                    <div class="upload">
-                      <img src="../assets/img/12.jpg" width = 100 height = 100 alt="">
-                      <div class="round">
-                        <input type="file">
-                        <i class = "bx bx-plus-medical" style = "color: #fff;"></i>
                       </div>
-                    </div>
-                  </div>
-                  <br>
-                  <br><br>
-                  <br>
-                  
-                </div>
-                <br>
-                <br>
-                <div class="d-grid gap-2">
-                  <button type="button" class="btn btn-danger btnbusi">Done</button>
-                </div> 
+                      <div class="col-md-6">
+                        <div class="upload">
+                          <img id="previewImage" src="../assets/img/uploadimage.png" width = 100 height = 100 alt="">
+                          <div class="round">
+                            <input type="file" id="logo"  onchange="previewImage(event)">
+                            <i class = "bx bx-plus-medical" style = "color: #fff;"></i>
+                          </div>
+                          <h1 id="extension" style="color:red;font-size: 12px;margin-top: 60px;"></h1>
+                        </div>
+                      </div>
+                      <br>
+                      <br><br>
+                      <br>
+                      </div><br><br>
+                      <div class="d-grid gap-2">
+                        <input type="button" class="btn btn-danger btnbusi" value="Done" onclick="uploadImage();get_card_info_update()">
+                      </div>
+                    </form> 
               </div>
             </div>
           </div>
         </div>
       </div>
       <!--modal-->
+      <!--copon card-->
+      <div class="modal fade" id="coponModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable " role="document">
+          <div class="modal-content ">
+            <div class="modal-body bg-3">
+  
+              <div class="px-3 to-front">
+                <div class="row align-items-center">
+                  <div class="col text-right">
+                    <a href="#" class="close-btn" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">
+                        <span class="icon-close2"></span>
+                      </span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="p-4 to-front">
+                <div class="row">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <form >
+                      
+                      <div class="mb-3 row">
+                        <label for="inputPassword" class="col-sm-2 col-form-label">Copon</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" id="coponcode">
+                        </div>
+                      </div>
+                      <div class="mb-3 row">
+
+                        <button type="button" onclick="verify_coupon()" style="background-color: tomato; border: none;" class="btn btn-primary">Verify</button>
+                      </div>
+                    </form>
+                    
+                  </div>
+                                          
+                </div>
+                
+                     
+                   
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--copon modal-->
       <!-- / Menu -->
 
       <!-- Layout container -->
@@ -325,90 +380,90 @@
         <!-- Navbar -->
         
         <nav
-          class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
-          id="layout-navbar"
-          >
-        <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
-          <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
-            <i class="bx bx-menu bx-sm"></i>
-          </a>
-        </div>
-
-        <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-          <!-- braedcrumb -->
-          <div class="navbar-nav align-items-center">
-            <div class="nav-item d-flex align-items-center">
-              <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-              <li class="breadcrumb-item active" aria-current="page">
-                Offers
-              </li>
-            </div>
-          </div>
-          <!-- /braedcrumb -->
-
-          <ul class="navbar-nav flex-row align-items-center ms-auto">
-            <!-- User -->
-            <li class="nav-item navbar-dropdown dropdown-user dropdown">
-              <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                <div class="avatar avatar-online">
-                  <img src="../assets/img/avatars/001.jpg" alt class="w-px-40 h-auto rounded-circle" />
-                </div>
+            class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
+            id="layout-navbar"
+            >
+            <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
+              <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
+                <i class="bx bx-menu bx-sm"></i>
               </a>
-              <ul class="dropdown-menu dropdown-menu-end">
-                <li>
-                  <a class="dropdown-item" href="#">
-                    <div class="d-flex">
-                      <div class="flex-shrink-0 me-3">
-                        <div class="avatar avatar-online">
-                          <img src="../assets/img/avatars/001.jpg" alt class="w-px-40 h-auto rounded-circle" />
-                        </div>
-                      </div>
-                      <div class="flex-grow-1">
-                        <span class="fw-semibold d-block">Achref Bechane</span>
-                        <small class="text-muted">Admin</small>
-                      </div>
+            </div>
+
+            <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
+              <div class="navbar-nav align-items-center">
+                <div class="nav-item d-flex align-items-center">
+                  <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">
+                    Offers
+                  </li>
+              </div>
+              </div>
+              <!-- /Search -->
+
+              <ul class="navbar-nav flex-row align-items-center ms-auto">
+                <!-- Place this tag where you want the button to render. -->
+                <!-- User -->
+                <li class="nav-item navbar-dropdown dropdown-user dropdown">
+                  <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
+                    <div class="avatar avatar-online"id="businessimgs">
+                      <img src="../assets/img/01.png"  alt class="w-px-40 h-auto rounded-circle" />
                     </div>
                   </a>
+                  <ul class="dropdown-menu dropdown-menu-end">
+                    <li>
+                      <a class="dropdown-item" href="#">
+                        <div class="d-flex">
+                          <div class="flex-shrink-0 me-3">
+                            <div class="avatar avatar-online" id="businessimg">
+                              <img src="../assets/img/01.png" alt class="w-px-40 h-auto rounded-circle" />
+                            </div>
+                          </div>
+                          <div class="flex-grow-1">
+                            <span class="fw-semibold d-block"><span id="fname"></span> <span id="lname"></span></span>
+                            <small class="text-muted" id="role">Admin ff</small>
+                          </div>
+                        </div>
+                      </a>
+                    </li>
+                    <li>
+                      <div class="dropdown-divider"></div>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="#">
+                        <i class="bx bx-user me-2"></i>
+                        <span class="align-middle">My Profile</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="#">
+                        <i class="bx bx-cog me-2"></i>
+                        <span class="align-middle">Settings</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="#">
+                        <span class="d-flex align-items-center align-middle">
+                          <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
+                          <span class="flex-grow-1 align-middle">Billing</span>
+                          <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
+                        </span>
+                      </a>
+                    </li>
+                    <li>
+                      <div class="dropdown-divider"></div>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="auth-login-basic.html">
+                        <i class="bx bx-power-off me-2"></i>
+                        <span class="align-middle">Log Out</span>
+                      </a>
+                    </li>
+                  </ul>
                 </li>
-                <li>
-                  <div class="dropdown-divider"></div>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="#">
-                    <i class="bx bx-user me-2"></i>
-                    <span class="align-middle">My Profile</span>
-                  </a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="#">
-                    <i class="bx bx-cog me-2"></i>
-                    <span class="align-middle">Settings</span>
-                  </a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="#">
-                    <span class="d-flex align-items-center align-middle">
-                      <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
-                      <span class="flex-grow-1 align-middle">Billing</span>
-                      <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
-                    </span>
-                  </a>
-                </li>
-                <li>
-                  <div class="dropdown-divider"></div>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="auth-login-basic.html">
-                    <i class="bx bx-power-off me-2"></i>
-                    <span class="align-middle">Log Out</span>
-                  </a>
-                </li>
+                <!--/ User -->
               </ul>
-            </li>
-            <!--/ User -->
-          </ul>
-        </div>
-        </nav>
+            </div>
+          </nav>
 
         <!-- / Navbar -->
 
@@ -471,7 +526,8 @@
                           </div>
                         </div>
                         <span class="fw-semibold d-block mb-1">Total Clients</span>
-                        <h3 class="card-title mb-2">222</h3>
+                        <h3 class="card-title mb-2"><span id="totalclient">3</span></h3>
+
                       </div>
                     </div>
                   </div>
@@ -532,7 +588,7 @@
                           </div>
                         </div>
                         <span class="d-block mb-1">Branches </span>
-                        <h3 class="card-title text-nowrap mb-1">6</h3>
+                        <h3 class="card-title text-nowrap mb-1" id="numberofbranchesofferpage"></h3>
                         
                       </div>
                     </div>
@@ -563,7 +619,7 @@
                           </div>
                         </div>
                         <span>Offers</span>
-                        <h3 class="card-title text-nowrap mb-1">15 </h3>
+                        <h3 class="card-title text-nowrap mb-1" id="totaloffers">15 </h3>
                         
                       </div>
                     </div>
@@ -573,12 +629,12 @@
                
             </div>
             <div class="row">
-              <!-- Transactions -->
+              <!-- offers -->
             <div class="col-lg-12 col-md-12 col-sm-12 order-3 mb-4">
               <div class="card h-100">
                 <div class="card-header d-flex align-items-center justify-content-between">
-                  <h5 class="card-title m-0 me-2">Recent Transactions</h5>
-                  <div class="dropdown">
+                  <h5 class="card-title m-0 me-2">All Offers </h5>
+                  <div class="dropdown"><!--duration-->
                     <button
                       class="btn p-0"
                       type="button"
@@ -597,72 +653,13 @@
                   </div>
                 </div>
                 <div class="card-body">
-                  <ul class="p-0 m-0">
-                    <li class="d-flex mb-4 pb-1">
-                      <div class="avatar flex-shrink-0 me-3">
-                        <i class="bx bxs-credit-card"></i> 
-                      </div>
-                      <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                        <div class="me-2">
-                          <small class="text-muted d-block mb-1">Card 1 : offer reddemed</small>
-                          <h6 class="mb-0"style="color:#EB455F">with <b>Aguida Nabil</b></h6>
-                        </div>
-                        <div class="user-progress d-flex align-items-center gap-1">
-                          <h6 class="mb-0"style="color:#EB455F">+82.6</h6>
-                          <span class="text-muted">PTS</span>
-                        </div>
-                      </div>
-                    </li>
-                    <li class="d-flex mb-4 pb-1">
-                      <div class="avatar flex-shrink-0 me-3">
-                        <i class="bx bxs-credit-card"></i> 
-                      </div>
-                      <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                        <div class="me-2">
-                          <small class="text-muted d-block mb-1">Card 1 : offer reddemed</small>
-                          <h6 class="mb-0"style="color:#EB455F">with <b>Aguida Nabil</b></h6>
-                        </div>
-                        <div class="user-progress d-flex align-items-center gap-1">
-                          <h6 class="mb-0"style="color:#EB455F">+15</h6>
-                          <span class="text-muted">PTS</span>
-                        </div>
-                      </div>
-                    </li>
-                    <li class="d-flex mb-4 pb-1">
-                      <div class="avatar flex-shrink-0 me-3">
-                        <i class="bx bxs-credit-card"></i> 
-                      </div>
-                      <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                        <div class="me-2">
-                          <small class="text-muted d-block mb-1">Card 1 : Point given</small>
-                          <h6 class="mb-0"style="color:#EB455F">with <b>Bechane Achref</b></h6>
-                        </div>
-                        <div class="user-progress d-flex align-items-center gap-1">
-                          <h6 class="mb-0"style="color:#EB455F">+20</h6>
-                          <span class="text-muted">PTS</span>
-                        </div>
-                      </div>
-                    </li>
-                    <li class="d-flex mb-4 pb-1">
-                      <div class="avatar flex-shrink-0 me-3">
-                        <i class="bx bxs-credit-card"></i> 
-                      </div>
-                      <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                        <div class="me-2">
-                          <small class="text-muted d-block mb-1">Card 1 : Point given</small>
-                          <h6 class="mb-0"style="color:#EB455F">with <b>Achref bechane</b></h6>
-                        </div>
-                        <div class="user-progress d-flex align-items-center gap-1">
-                          <h6 class="mb-0"style="color:#EB455F">+66</h6>
-                          <span class="text-muted">PTS </span>
-                        </div>
-                      </div>
-                    </li>
-                  </ul>
+                  <div class="row" id="offers">
+                    
+                  </div>
                 </div>
               </div>
             </div>
-            <!--/ Transactions -->
+            <!--/ offers -->
             </div>
 
               
@@ -696,111 +693,112 @@
           </div>
           <!--fixed create -->
           <!--modal offer-->
-            <div class="modal fade" id="createoffer" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-              <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable " role="document">
-                <div class="modal-content ">
-                  <div class="modal-body bg-3">
-        
-                    <div class="px-3 to-front">
-                      <div class="row align-items-center">
-                        <div class="col text-right">
-                          <a href="#" class="close-btn" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">
-                              <span class="icon-close2"></span>
-                            </span>
-                          </a>
-                        </div>
+          <div class="modal fade" id="createoffer" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable " role="document">
+              <div class="modal-content ">
+                <div class="modal-body bg-3">
+      
+                  <div class="px-3 to-front">
+                    <div class="row align-items-center">
+                      <div class="col text-right">
+                        <a href="#" class="close-btn" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">
+                            <span class="icon-close2"></span>
+                          </span>
+                        </a>
                       </div>
                     </div>
-                    <div class="p-4 to-front">
-                      <div class="row">
-                        <form action="#" method="post">
-                          <h4 class="text-center"> Create Offer</h4>
-                          <div class="col-lg-12 col-md-12 col-sm-12">
-                            <div class="mb-3"><!--Title-->
-                              <label for="exampleFormControlInput1" class="form-label">Title</label>
-                              <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="your Offer Title">
-                            </div>
-                            <div class="mb-3"><!--Descriptiion-->
-                              <label for="exampleFormControlInput1" class="form-label">Descriptiion</label>
-                              <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="your Offer Descriptiion">
-                            </div>
-                            
-                            <div class="mb-3"><!--Date end-->
-                              <label for="exampleFormControlInput1" class="form-label">Date end</label>
-                              <input type="date" class="form-control" id="exampleFormControlInput1" placeholder="your Offer Date end">
-                            </div>
-                            <div class="mb-3"><!--POINT-->
-                              <label for="exampleFormControlInput1" class="form-label">Point</label>
-                              <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="Points . . . ">
-                            </div>
+                  </div>
+                  <div class="p-4 to-front">
+                    <div class="row">
+                      <form action="#" method="post">
+                        <h4 class="text-center"> Create Offer</h4>
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                          <div class="mb-3"><!--Title-->
+                            <label for="exampleFormControlInput1" class="form-label">Title</label>
+                            <input type="text" class="form-control" id="offerTitle" placeholder="your Offer Title">
                           </div>
-                          <div class="mb-3">
-                            <input type="button" value="Create" class="btn btn-danger btnbusi"/>
-                          </div> 
-                        </form>                    
-                      </div>
-                      <br>
-                      
+                          <div class="mb-3"><!--Descriptiion-->
+                            <label for="exampleFormControlInput1" class="form-label">Descriptiion</label>
+                            <input type="text" class="form-control" id="offerDescriptiion" placeholder="your Offer Descriptiion">
+                          </div>
+                          
+                          <div class="mb-3"><!--Date end-->
+                            <label for="exampleFormControlInput1" class="form-label">Date end</label>
+                            <input type="date" class="form-control" id="offerDate" placeholder="your Offer Date end">
+                          </div>
+                          <div class="mb-3"><!--POINT-->
+                            <label for="exampleFormControlInput1" class="form-label">Point</label>
+                            <input type="number" class="form-control" id="offerPoint" placeholder="Points . . . ">
+                          </div>
+                        </div>
+                        <div class="mb-3">
+                          <input type="button" value="Create" onclick="create_offer()" id="doneButton" class="btn btn-danger btnbusi"/>
+                        </div> 
+                      </form>                    
                     </div>
+                    <br>
+                    
                   </div>
                 </div>
               </div>
             </div>
-          <!--modal offer-->
+          </div>
+        <!--modal offer-->
           <!--modal transaction-->
-            <div class="modal fade" id="createtransaction" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-              <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable " role="document">
-                <div class="modal-content ">
-                  <div class="modal-body bg-3">
-        
-                    <div class="px-3 to-front">
-                      <div class="row align-items-center">
-                        <div class="col text-right">
-                          <a href="#" class="close-btn" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">
-                              <span class="icon-close2"></span>
-                            </span>
-                          </a>
-                        </div>
+          <div class="modal fade" id="createtransaction" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable " role="document">
+              <div class="modal-content ">
+                <div class="modal-body bg-3">
+      
+                  <div class="px-3 to-front">
+                    <div class="row align-items-center">
+                      <div class="col text-right">
+                        <a href="#" class="close-btn" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">
+                            <span class="icon-close2"></span>
+                          </span>
+                        </a>
                       </div>
                     </div>
-                    <div class="p-4 to-front">
-                      <div class="row">
-                        <form action="#" method="post">
-                          <h4 class="text-center"> Create Transaction</h4>
-                          <div class="col-lg-12 col-md-12 col-sm-12">
-                            <div class="mb-3"><!--Title-->
-                              <label for="exampleFormControlInput1" class="form-label">Title</label>
-                              <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="your Offer Title">
-                            </div>
-                            <div class="mb-3"><!--Descriptiion-->
-                              <label for="exampleFormControlInput1" class="form-label">Descriptiion</label>
-                              <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="your Offer Descriptiion">
-                            </div>
+                  </div>
+                  <div class="p-4 to-front">
+                    <div class="row">
+                      <form method="post">
+                        <h4 class="text-center"> Create Transaction</h4>
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                          <div class="mb-3"><!--dropdown client-->
+                            <label for="exampleFormControlInput1" class="form-label">Customer </label>
+                            <select class="custom-select form-select form-select-lg mb-3" id="selectcutomers">
+                              <option value="1">Customer...</option>
+                              
+                              
+                            </select>
+                            <label for="exampleFormControlInput1" class="form-label">Branch </label>
+                            <select class="custom-select form-select form-select-lg mb-3" id="selectbranch">
+                              <option value="">Branches...</option>
+
+                            </select>
                             
-                            <div class="mb-3"><!--Date end-->
-                              <label for="exampleFormControlInput1" class="form-label">Date end</label>
-                              <input type="date" class="form-control" id="exampleFormControlInput1" placeholder="your Offer Date end">
-                            </div>
-                            <div class="mb-3"><!--POINT-->
-                              <label for="exampleFormControlInput1" class="form-label">Point</label>
-                              <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="Points . . . ">
-                            </div>
                           </div>
-                          <div class="mb-3">
-                            <input type="button" value="Create" class="btn btn-danger btnbusi"/>
-                          </div> 
-                        </form>                    
-                      </div>
-                      <br>
-                      
+                          <div class="mb-3"><!--POINT-->
+                            <label for="exampleFormControlInput1" class="form-label">Point</label>
+                            <input type="number" class="form-control" id="transactionpoint" placeholder="Points . . . ">
+                          </div>
+                        </div>
+                        <div class="mb-3">
+                          <input type="button" value="Confirm Transaction" onclick="create_transaction()" class="btn btn-danger btnbusi"/>
+                        </div> 
+                      </form>                    
                     </div>
+                    <br>
+                    
                   </div>
                 </div>
               </div>
             </div>
-          <!--modal transaction-->
+          </div>
+        <!--modal transaction-->
           <!--modal Branch-->
             <div class="modal fade" id="createbranch" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
               <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable " role="document">
@@ -901,6 +899,10 @@
     <script src="../assets/vendor/libs/popper/popper.js"></script>
     <script src="../assets/vendor/js/bootstrap.js"></script>
     <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script  src="../assets/vendor/js/index-flow-data.js"></script>
+    <script src="../assets/vendor/js/newmain.js"></script>
+
+
 
     <script src="../assets/vendor/js/menu.js"></script>
     <!-- endbuild -->

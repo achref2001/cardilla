@@ -139,8 +139,11 @@ function showTab(n) {
     document.getElementById("prevBtn").style.display = "inline";
   }
   if (n == (x.length - 1)) {
-    document.getElementById("nextBtn").innerHTML = "Submit";
+    document.getElementById("nextBtn").style.display = "none";
+    document.getElementById("save-button").style.display = "inline";
   } else {
+    document.getElementById("save-button").style.display = "none";
+    document.getElementById("nextBtn").style.display = "inline";
     document.getElementById("nextBtn").innerHTML = "Next";
   }
   // ... and run a function that displays the correct step indicator:
@@ -197,3 +200,79 @@ function fixStepIndicator(n) {
   //... and adds the "active" class to the current step:
   x[n].className += " active";
 }
+/**check image size */
+const input = document.querySelector('input[type="file"]');
+const maxFileSize = 3000000; // 2 megabytes
+
+input.addEventListener('change', function() {
+  const file = this.files[0];
+  if (file.size > maxFileSize) {
+    document.getElementById("size").innerHTML = "File size is too large!";
+    this.value = '';
+  }
+});
+/**check image extension */
+
+function checkFileExtension() {
+  const allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
+  const fileInput = document.getElementById('logoUrl');
+  const fileName = fileInput.value;
+
+  if (!allowedExtensions.exec(fileName)) {
+    
+    document.getElementById("extension").innerHTML = "Invalid file type. Only JPG, JPEG, PNG and GIF file types are allowed.";
+    fileInput.value = '';
+      return false;
+    }
+}
+// function myOtherFunction() {
+//   console.log("This is my other function.");
+// }
+document.getElementById("nextBtn").addEventListener("click", nextButtonClickHandler);
+
+let myFunctionCalled = false;
+
+function nextButtonClickHandler() {
+  if (!myFunctionCalled) {
+    uploadImage();
+    myFunctionCalled = true;
+  }
+}
+
+
+async function uploadImage() {
+  const result = {};
+  console.log("Uploading image...");
+
+  const request = new XMLHttpRequest();
+  request.open("POST", 'http://10.7.3.130:1000/api/business/logoUpload');
+  request.responseType = "json";
+
+  // Add the image file to the request
+  const fileInput = document.getElementById("logo");
+  const file = fileInput.files[0];
+
+  const filePart = new FormData();
+  filePart.append("logourl", file);
+  request.send(filePart);
+
+  try {
+    await request.response;
+
+    if (request.status === 200 || request.status === 201) {
+      result.status = true;
+      result.message = "Successful";
+    } else {
+      result.status = false;
+      result.message = "Failed to upload image. Status code: " + request.status;
+    }
+  } catch (e) {
+    result.status = false;
+    result.message = "Error: " + e;
+  }
+
+  console.log(result);
+
+  return result;
+}
+document.getElementById("nextBtn").addEventListener("click", nextButtonClickHandler);

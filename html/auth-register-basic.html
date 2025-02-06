@@ -5,7 +5,7 @@
   dir="ltr"
   data-theme="theme-default"
   data-assets-path="../assets/"
-  data-template="vertical-menu-template-free"
+  
 >
   <head>
     <meta charset="utf-8" />
@@ -30,7 +30,7 @@
     />
 
     <!-- Icons. Uncomment required icon fonts -->
-    <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
+    <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" /> <link rel="icon" type="image/ico" href="../assets/img/icons/unicons/favicon.ico">
 
     <!-- Core CSS -->
     <link rel="stylesheet" href="../assets/vendor/css/core.css" class="template-customizer-core-css" />
@@ -84,10 +84,12 @@
                     placeholder="Enter your username"
                     autofocus
                   />
+                  <span id="username-error"></span>
                 </div>
                 <div class="mb-3"><!--email-->
                   <label for="email" class="form-label">Email</label>
                   <input type="text" class="form-control" id="email" name="email" placeholder="Enter your email" />
+                  <span id="email-error"></span>
                 </div>
                 <div class="mb-3 form-password-toggle"><!--password-->
                   <label class="form-label" for="password">Password</label>
@@ -102,6 +104,7 @@
                     />
                     <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                   </div>
+                  <span id="password-error"></span>
                 </div>
                 <div class="mb-3"><!--first name-->
                   <label for="username" class="form-label">First Name</label>
@@ -113,6 +116,8 @@
                     placeholder="Enter your first Name"
                     autofocus
                   />
+                  <span id="firstname-error"></span>
+
                 </div>
                 <div class="mb-3"><!--last name-->
                   <label for="username" class="form-label">Last Name</label>
@@ -123,7 +128,10 @@
                     name="lastName"
                     placeholder="Enter your last Name"
                     autofocus
+                    onblur="sanitizeLastName()"
                   />
+                  <span id="lastName-error"></span>
+
                 </div>
                 <div class="mb-3"><!--age-->
                   <label for="username" class="form-label">Age </label>
@@ -135,6 +143,7 @@
                     placeholder="Enter your last age "
                     autofocus
                   />
+                  <span id="age-error"></span>
                 </div>
                 <div class="mb-3"><!--number-->
                   <label for="username" class="form-label">phone Nunmber </label>
@@ -146,21 +155,39 @@
                     placeholder="Enter your last phoneNb "
                     autofocus
                   />
+                  <span id="phoneNb-error"></span>
+
                 </div>
                 <div class="mb-3"><!--Gender-->
-                  <label for="gender" class="form-label">Gender </label>
                   <div class="form-check">
-                    <input class="form-check-input" type="radio"value="MALE" name="MALE" id="gender" checked>
+                    <input class="form-check-input" type="radio" value="FEMALE"  name="flexRadioDefault" id="gender">
+                    <label class="form-check-label" for="flexRadioDefault1">
+                      Femmale
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" value="MALE" name="flexRadioDefault" id="gender" >
+                    <label class="form-check-label" for="flexRadioDefault2">
+                      MALE
+                    </label>
+                  </div>
+                  <!-- <label for="gender" class="form-label">Gender </label>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" value="MALE" name="MALE" id="gender" checked>
                     <label class="form-check-label" for="gender">
                       MALE
                     </label>
+                    
                   </div>
                   <div class="form-check">
                     <input class="form-check-input" type="radio" value="FEMALE" name="gender" id="gender" >
                     <label class="form-check-label" for="gender">
                       Femmale
                     </label>
-                  </div>
+
+                  </div> -->
+                  <span id="gender-error"></span>
+
                 </div>
                 <!-- 
                 <div class="input-group mb-3"><!--Gender
@@ -173,17 +200,16 @@
                 </div>-->
                 <div class="mb-3">
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="terms-conditions" name="terms" />
+                    <input class="form-check-input" type="checkbox" id="" name="terms" />
                     <label class="form-check-label" for="terms-conditions">
                       I agree to
                       <a href="javascript:void(0);">privacy policy & terms</a>
                     </label>
                   </div>
                 </div>
-                <input class="btn btn-primary d-grid w-100" type="button" onclick="signup()" value="Sign up">
-              </form>git push -u origin main
-              https://github.com/achref2001/cardilla-web-app.git
-
+                <span id="terms-conditions"></span>
+                <input class="btn btn-primary d-grid w-100" style="background-color: tomato; border:none" type="button" onclick="signup()" value="Sign up">
+              </form>
               <p class="text-center">
                 <span>Already have an account?</span>
                 <a href="auth-login-basic.html">
